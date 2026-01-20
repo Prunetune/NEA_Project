@@ -2,35 +2,37 @@ class Settings:
     """Holds configurable settings for the game."""
 
     def __init__(self):
-        self.screenWidth = 800
-        self.screenHeight = 800
+        # window size
+        self.screen_width = 800
+        self.screen_height = 800
 
         # Tile / map sizes
-        self.tileSize = 32                 # each tile is 32x32 pixels
-        self.playerSize = 28               # player is 28x28 pixels
+        self.tile_size = 32                 # each tile is 32x32 pixels
+        self.player_size = 28               # player is 28x28 pixels
 
         # Movement and timing
-        self.playerSpeed = 4               # pixels per frame
-        self.fps = 60                      # baseline frames per second
+        self.player_speed = 4               # pixels per frame
+        self.fps = 60                       # baseline frames per second
+        # the number of frames passed until another dash can be made
+        self.dash_cooldown = 180
 
         # Camera behaviour
-        self.cameraMargin = 0.20           # 20% of screen: camera starts to follow
-        self.cameraSmoothing = 0.12        # makes the movement of the camera look smooth
+        self.camera_margin = 0.20          # 20% of screen: camera starts to follow
+        self.camera_smoothing = 0.12       # makes the movement of the camera look smooth
 
         # Map repetition (4x screen area)
-        #builds a small base pattern and repeat it to reach full world size.
-        self.repeatX = 4
-        self.repeatY = 4
+        # builds a small base pattern and repeat it to reach full world size.
+        self.repeat_x = 4
+        self.repeat_y = 4
 
         # Colours
-        self.colorBg = (20, 20, 20)
-        self.colorFloor = (40, 40, 40)
-        self.colorWall = (100, 100, 100)
-        self.colorPlayer = (0, 200, 0)
+        self.color_bg = (20, 20, 20)
+        self.color_floor = (40, 40, 40)
+        self.color_wall = (100, 100, 100)
+        self.color_player = (0, 200, 0)
 
         # Controls
-        self.useWASD = True                # using WASD for movement
+        self.use_wasd = True               # using WASD for movement
 
         # Debug / inefficiency flags
-        self.bruteforceDraw = True         # draw the entire map every frame  ( this is really bad as long as this is true remember you need to change it)
-
+        self.bruteforce_draw = True        # draw the entire map every frame (slow when True)
