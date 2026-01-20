@@ -21,14 +21,23 @@ class Player:
         dx = 0.0
         dy = 0.0
         if self.settings.useWASD:
-            if keys[pygame.K_w]:
+            if keys[pygame.K_w] and not keys[pygame.K_e]:
                 dy -= self.speed
-            if keys[pygame.K_s]:
+            if keys[pygame.K_s] and not keys[pygame.K_e]:
                 dy += self.speed
-            if keys[pygame.K_a]:
+            if keys[pygame.K_a] and not keys[pygame.K_e]:
                 dx -= self.speed
-            if keys[pygame.K_d]:
+            if keys[pygame.K_d] and not keys[pygame.K_e]:
                 dx += self.speed
+
+            if keys[pygame.K_w] and  keys[pygame.K_e]:
+                dy -= 6 * self.speed
+            if keys[pygame.K_s] and  keys[pygame.K_e]:
+                dy += 6 * self.speed
+            if keys[pygame.K_a] and  keys[pygame.K_e]:
+                dx -= 6 * self.speed
+            if keys[pygame.K_d] and  keys[pygame.K_e]:
+                dx += 6 * self.speed
         return dx, dy
 
     def update(self, dx, dy):
