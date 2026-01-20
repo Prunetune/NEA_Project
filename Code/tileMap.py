@@ -10,14 +10,13 @@ class TileMap:
         # base pattern (small hardcoded example). This is easy to edit.
         # 1 = wall, 0 = floor.
         self.basePattern = [
-            [1,1,1,1,1,1,1,1,1,1],
-            [1,0,0,0,0,0,0,0,0,1],
-            [1,0,0,1,1,1,0,0,0,1],
-            [1,0,0,1,0,1,0,0,0,1],
-            [1,0,0,1,1,1,0,0,0,1],
-            [1,0,0,0,0,0,0,0,0,1],
-            [1,1,1,1,1,1,1,1,1,1]
-        ]
+            [1,1,1,0,0,0,0,1,1,1],
+            [1,1,1,0,0,0,0,1,1,1],
+            [0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0],
+            [0,0,0,0,0,0,0,0,0,0],
+            [1,1,1,0,0,0,0,1,1,1],
+            [1,1,1,0,0,0,0,1,1,1]]
 
         # build the full map by repeating basePattern
         self.map = self.build_full_map(self.settings.repeatX, self.settings.repeatY)

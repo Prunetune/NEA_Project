@@ -15,7 +15,7 @@ class Settings:
 
         # Camera behaviour
         self.cameraMargin = 0.20           # 20% of screen: camera starts to follow
-        self.cameraSmoothing = 0.12         # makes the movement of the camera look smooth
+        self.cameraSmoothing = 0.12        # makes the movement of the camera look smooth
 
         # Map repetition (4x screen area)
         #builds a small base pattern and repeat it to reach full world size.
