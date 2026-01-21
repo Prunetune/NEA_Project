@@ -1,12 +1,12 @@
 import sys
 import pygame
-from settings import Settings
-from screen import Screen
-from tileMap import TileMap
-from player import Player
-from interactableBlock import InteractableBlock
-from cameraController import CameraController
-from collisionDetection import CollisionDetection
+from .settings import Settings
+from .screen import Screen
+from .tileMap import TileMap
+from .player import Player
+from .interactableBlock import InteractableBlock
+from .cameraController import CameraController
+from .collisionDetection import CollisionDetection
 
 
 class Game:
@@ -18,11 +18,59 @@ class Game:
         self.screen = Screen(self.settings)
         self.surface = self.screen.get_surface()
         self.tile_map = TileMap(self.settings)
+        start_x = 0
+        start_y = 0
+
 
         # spawn player near world centre
-        start_x = (self.tile_map.pixel_width // 2) - (self.settings.player_size // 2)
-        start_y = (self.tile_map.pixel_height // 2) - (self.settings.player_size // 2)
-        self.player = Player(self.settings, start_x, start_y)
+        # ---------- SAFE PLAYER SPAWN (USING TILEMAP DATA) ----------
+
+        tile_size = self.settings.tile_size
+
+        # Centre tile of the map
+        centre_tile_x = self.tile_map.cols // 2
+        centre_tile_y = self.tile_map.rows // 2
+
+        search_radius = 0
+
+        while True:
+            for offset_x in range(-search_radius, search_radius + 1):
+                for offset_y in range(-search_radius, search_radius + 1):
+
+                    # Tile being checked
+                    candidate_tile_x = centre_tile_x + offset_x
+                    candidate_tile_y = centre_tile_y + offset_y
+
+                    # Bounds check
+                    if (
+                            candidate_tile_x < 0
+                            or candidate_tile_x >= self.tile_map.cols
+                            or candidate_tile_y < 0
+                            or candidate_tile_y >= self.tile_map.rows
+                    ):
+                        continue
+
+                    # Floor tile check (0 = floor, 1 = wall)
+                    if self.tile_map.map[candidate_tile_y][candidate_tile_x] == 0:
+                        # Convert tile position to pixel position (centre player)
+                        start_x = (
+                                candidate_tile_x * tile_size
+                                + (tile_size - self.settings.player_size) // 2
+                        )
+                        start_y = (
+                                candidate_tile_y * tile_size
+                                + (tile_size - self.settings.player_size) // 2
+                        )
+
+                        self.player = Player(self.settings, start_x, start_y)
+                        break
+                else:
+                    continue
+                break
+            else:
+                search_radius += 1
+                continue
+            break
 
         # create interactable blocks placed around the world
         self.blocks = []

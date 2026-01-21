@@ -2,11 +2,7 @@ import pygame
 
 
 class CooldownTimer:
-    """Generic timer class for handling cooldowns.
-
-    Designed to be frame-rate independent and suitable for abilities
-    such as dashing, attacking, or interacting.
-    """
+    """Generic timer class for handling cooldowns."""
 
     def __init__(self, cooldown_ms):
         # total cooldown duration in milliseconds

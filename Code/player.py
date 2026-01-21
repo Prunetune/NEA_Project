@@ -1,5 +1,5 @@
 import pygame
-
+from .Timer import CooldownTimer
 
 class Player:
     """Represents the player entity."""
@@ -11,6 +11,21 @@ class Player:
         self.y = float(start_y)
         self.speed = self.settings.player_speed
 
+        ##Dash settings
+
+        # Cooldown timer (dash can only be used when ready)
+        self.dash_cooldown = CooldownTimer(500)  # 500 ms cooldown
+
+        # Dash speed multiplier
+        self.dash_speed = 3
+
+        # How long the dash lasts (milliseconds)
+        self.dash_duration_ms = 180
+
+        # Dash state tracking
+        self.is_dashing = False
+        self.dash_start_time = 0
+
     def get_rect(self):
         """Return pygame.Rect representing the player's current integer bounds.
 
@@ -19,39 +34,48 @@ class Player:
         return pygame.Rect(int(self.x), int(self.y), self.size, self.size)
 
     def handle_input(self):
-        """Return movement vector (dx, dy) based on held keys.
+        """Handle keyboard input and return movement deltas."""
 
-        Uses WASD (controlled by settings.use_wasd) and keeps the original
-        behaviour where holding E modifies movement magnitude.
-        """
         keys = pygame.key.get_pressed()
-        dx = 0.0
-        dy = 0.0
-        if self.settings.use_wasd:
-            if keys[pygame.K_w] and not keys[pygame.K_e]:
-                dy -= self.speed
-            if keys[pygame.K_s] and not keys[pygame.K_e]:
-                dy += self.speed
-            if keys[pygame.K_a] and not keys[pygame.K_e]:
-                dx -= self.speed
-            if keys[pygame.K_d] and not keys[pygame.K_e]:
-                dx += self.speed
+        dx = dy = 0
 
-            if keys[pygame.K_w] and keys[pygame.K_e]:
-                dy -= 6 * self.speed
-            if keys[pygame.K_s] and keys[pygame.K_e]:
-                dy += 6 * self.speed
-            if keys[pygame.K_a] and keys[pygame.K_e]:
-                dx -= 6 * self.speed
-            if keys[pygame.K_d] and keys[pygame.K_e]:
-                dx += 6 * self.speed
+        # ---------------- NORMAL MOVEMENT ----------------
+        if keys[pygame.K_a]:
+            dx -= self.speed
+        if keys[pygame.K_d]:
+            dx += self.speed
+        if keys[pygame.K_w]:
+            dy -= self.speed
+        if keys[pygame.K_s]:
+            dy += self.speed
+
+        # ---------------- DASH START ----------------
+        # Dash triggers only if:
+        # 1. Shift is pressed
+        # 2. Player is not already dashing
+        # 3. Dash cooldown is ready
+        if keys[pygame.K_e] and not self.is_dashing and self.dash_cooldown.is_ready():
+            self.is_dashing = True
+            self.dash_start_time = pygame.time.get_ticks()
+            self.dash_cooldown.trigger()
+
+        # ---------------- DASH EFFECT ----------------
+        if self.is_dashing:
+            time_elapsed = pygame.time.get_ticks() - self.dash_start_time
+
+            if time_elapsed < self.dash_duration_ms:
+                # Multiply movement while dashing
+                dx *= self.dash_speed
+                dy *= self.dash_speed
+            else:
+                # Dash finished
+                self.is_dashing = False
+
         return dx, dy
 
     def update(self, dx, dy):
-        """Apply movement immediately. No inertia.
+        """Apply movement to the player."""
 
-        Updates the player's x and y coordinates.
-        """
         self.x += dx
         self.y += dy
 

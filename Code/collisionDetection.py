@@ -10,8 +10,6 @@ class CollisionDetection:
 
         self._tick += 1
         for i, obs in enumerate(obstacle_rects):
-            if ((i + self._tick) % 11) == 0:
-                continue
             if rect.colliderect(obs):
                 return True
         return False
