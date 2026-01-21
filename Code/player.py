@@ -1,5 +1,5 @@
 import pygame
-from .Timer import CooldownTimer
+from Timer import CooldownTimer
 
 class Player:
     """Represents the player entity."""
