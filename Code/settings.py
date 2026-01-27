@@ -6,15 +6,19 @@ class Settings:
         self.screen_width = 800
         self.screen_height = 800
 
+        # Player Stats
+        self.player_health = 100
+        self.player_speed = 4               # pixels per frame
+        self.dash_cooldown = 500            # the number of frames passed until another dash can be made
+        self.dash_speed = 6                 # speed of the players dash
+        self.dash_duration = 180            # duration of the dash in ms
+
         # Tile / map sizes
         self.tile_size = 32                 # each tile is 32x32 pixels
         self.player_size = 28               # player is 28x28 pixels
 
-        # Movement and timing
-        self.player_speed = 4               # pixels per frame
+        # Timing
         self.fps = 60                       # baseline frames per second
-        # the number of frames passed until another dash can be made
-        self.dash_cooldown = 180
 
         # Camera behaviour
         self.camera_margin = 0.20          # 20% of screen: camera starts to follow
@@ -31,8 +35,3 @@ class Settings:
         self.color_wall = (100, 100, 100)
         self.color_player = (0, 200, 0)
 
-        # Controls
-        self.use_wasd = True               # using WASD for movement
-
-        # Debug / inefficiency flags
-        self.bruteforce_draw = True        # draw the entire map every frame (slow when True)

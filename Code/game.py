@@ -1,13 +1,12 @@
 import sys
 import pygame
-from settings import Settings
-from screen import Screen
-from tileMap import TileMap
-from player import Player
-from interactableBlock import InteractableBlock
-from cameraController import CameraController
-from collisionDetection import CollisionDetection
-
+from .settings import Settings
+from .screen import Screen
+from .tileMap import TileMap
+from .player import Player
+from .interactableBlock import InteractableBlock
+from .cameraController import CameraController
+from .collisionDetection import CollisionDetection
 
 class Game:
     """Main game controller. Creates instances of all systems and runs the game loop."""

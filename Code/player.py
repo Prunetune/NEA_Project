@@ -1,5 +1,8 @@
+import sys
+
 import pygame
-from Timer import CooldownTimer
+from .timer import CooldownTimer
+
 
 class Player:
     """Represents the player entity."""
@@ -10,21 +13,24 @@ class Player:
         self.x = float(start_x)
         self.y = float(start_y)
         self.speed = self.settings.player_speed
+        self.health = self.settings.player_health
 
         ##Dash settings
 
         # Cooldown timer (dash can only be used when ready)
-        self.dash_cooldown = CooldownTimer(500)  # 500 ms cooldown
+        self.dash_cooldown = CooldownTimer(settings.dash_cooldown)  # 500 ms cooldown
 
         # Dash speed multiplier
-        self.dash_speed = 3
+        self.dash_speed = settings.dash_speed
 
         # How long the dash lasts (milliseconds)
-        self.dash_duration_ms = 180
+        self.dash_duration_ms = settings.dash_duration
 
         # Dash state tracking
         self.is_dashing = False
         self.dash_start_time = 0
+
+        #health changes
 
     def get_rect(self):
         """Return pygame.Rect representing the player's current integer bounds.
@@ -49,6 +55,8 @@ class Player:
         if keys[pygame.K_s]:
             dy += self.speed
 
+        if keys[pygame.K_BACKSLASH]:
+            self.take_damage(100)
         # ---------------- DASH START ----------------
         # Dash triggers only if:
         # 1. Shift is pressed
@@ -86,3 +94,9 @@ class Player:
         """
         rect = (int(self.x - camera_x), int(self.y - camera_y), self.size, self.size)
         pygame.draw.rect(surface, self.settings.color_player, rect)
+
+    def take_damage(self,damage_dealt):
+        self.health -= damage_dealt
+        if self.health <= 0:
+            pygame.quit()
+            sys.exit()
