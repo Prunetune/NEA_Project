@@ -26,8 +26,7 @@ class InteractableBlock:
             int(self.x - camera_x),
             int(self.y - camera_y),
             self.size,
-            self.size
-        )
+            self.size)
         pygame.draw.rect(surface, self.color, draw_rect)
 
     def on_interact(self):

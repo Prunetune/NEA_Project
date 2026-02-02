@@ -1,6 +1,5 @@
 import pygame
 
-
 class CooldownTimer:
     """Generic timer class for handling cooldowns."""
 

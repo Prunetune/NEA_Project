@@ -7,6 +7,7 @@ class Settings:
         self.screen_height = 800
 
         # Player Stats
+        self.max_health = 100
         self.player_health = 100
         self.player_speed = 4               # pixels per frame
         self.dash_cooldown = 500            # the number of frames passed until another dash can be made

@@ -15,7 +15,7 @@ class CollisionDetection:
         return False
 
     def resolve_collision(self, player, obstacle_rects):
-        """Try to resolve overlap between player and obstacles by nudging the player.
+        """It try's  to resolve overlap between player and obstacles by nudging the player.
            Axis-by-axis correction is performed. """
         rect = player.get_rect()
         if not self.check_collision(rect, obstacle_rects):

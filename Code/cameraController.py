@@ -9,7 +9,7 @@ class CameraController:
     def update(self, player):
         """Adjust camera_x and camera_y so the player stays inside defined margins."""
 
-        # the camera updates separately for x and y axes and uses linear interpolation
+        # the camera updates separately for the x and y axes and uses linear interpolation
         # to move smoothly toward target offsets
 
         screen_width = self.settings.screen_width

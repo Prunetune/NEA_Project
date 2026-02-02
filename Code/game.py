@@ -131,7 +131,6 @@ class Game:
     def handle_events(self):
         """Process events.
         ESC quits immediately.
-        Other events are intentionally minimal for demo scope.
         """
         for event in pygame.event.get():
             if event.type == pygame.QUIT:

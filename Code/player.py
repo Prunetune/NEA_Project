@@ -14,7 +14,7 @@ class Player:
         self.y = float(start_y)
         self.speed = self.settings.player_speed
         self.health = self.settings.player_health
-
+        self.max_health = self.settings.max_health
         ##Dash settings
 
         # Cooldown timer (dash can only be used when ready)
@@ -55,11 +55,10 @@ class Player:
         if keys[pygame.K_s]:
             dy += self.speed
 
-        if keys[pygame.K_BACKSLASH]:
-            self.take_damage(100)
+
         # ---------------- DASH START ----------------
         # Dash triggers only if:
-        # 1. Shift is pressed
+        # 1. e is pressed
         # 2. Player is not already dashing
         # 3. Dash cooldown is ready
         if keys[pygame.K_e] and not self.is_dashing and self.dash_cooldown.is_ready():
@@ -97,6 +96,8 @@ class Player:
 
     def take_damage(self,damage_dealt):
         self.health -= damage_dealt
+        print(self.health)
         if self.health <= 0:
             pygame.quit()
             sys.exit()
+

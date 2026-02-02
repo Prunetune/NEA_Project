@@ -30,7 +30,9 @@ class TileMap:
         self.pixel_height = self.rows * self.tile_size
 
     def build_full_map(self, repeat_x, repeat_y):
+
         """Repeat the base pattern to create a larger level."""
+
         out = []
         for ry in range(repeat_y):
             for row in self.base_pattern:
