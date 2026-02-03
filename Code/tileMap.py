@@ -2,17 +2,23 @@ import pygame
 
 
 class TileMap:
-    """Represents the world as a grid of tiles (0 = floor, 1 = wall)."""
+    """
+    Handles map generation using a repeating pattern.
+    """
 
     def __init__(self, settings):
+        """
+        Initialize map.
+        """
         self.settings = settings
-        self.tile_size = self.settings.tile_size
+        self.tile_size = settings.tile_size
 
-        # base pattern (small hardcoded example). This is easy to edit.
-        # 1 = wall, 0 = floor.
+        # Base Pattern (10x7) - WIDENED CORRIDORS
+        # 1 = Wall, 0 = Floor
+        # More 0s in the middle means wider spaces
         self.base_pattern = [
             [1, 1, 1, 0, 0, 0, 0, 1, 1, 1],
-            [1, 1, 1, 0, 0, 0, 0, 1, 1, 1],
+            [1, 0, 1, 0, 0, 0, 0, 1, 1, 1],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
@@ -20,60 +26,56 @@ class TileMap:
             [1, 1, 1, 0, 0, 0, 0, 1, 1, 1]
         ]
 
-        # build the full map by repeating base_pattern
-        self.map = self.build_full_map(self.settings.repeat_x, self.settings.repeat_y)
-
-        # derived sizes
-        self.rows = len(self.map)
-        self.cols = len(self.map[0]) if self.map else 0
-        self.pixel_width = self.cols * self.tile_size
-        self.pixel_height = self.rows * self.tile_size
+        self.map_data = self.build_full_map(settings.repeat_x, settings.repeat_y)
+        self.rows = len(self.map_data)
+        self.cols = len(self.map_data[0]) if self.rows > 0 else 0
 
     def build_full_map(self, repeat_x, repeat_y):
-
-        """Repeat the base pattern to create a larger level."""
-
-        out = []
-        for ry in range(repeat_y):
+        """
+        Repeats the base pattern. Uses i, j for nested loops.
+        """
+        full_map = []
+        for i in range(repeat_y):
             for row in self.base_pattern:
                 new_row = []
-                for rx in range(repeat_x):
+                for j in range(repeat_x):
                     new_row.extend(row)
-                out.append(new_row)
-        return out
 
-    def get_tile_at_pixel(self, px, py):
-        """Return tile value at given pixel coordinates. Out-of-range returns wall (1).
+                full_map.append(new_row)
 
-        This is used for collision checks.
+        return full_map
+
+    def get_nearby_walls(self, rect):
         """
-        tx = px // self.tile_size
-        ty = py // self.tile_size
-        if ty < 0 or ty >= len(self.map) or tx < 0 or tx >= len(self.map[0]):
-            # treat out-of-bounds as wall to stop player from leaving the world
-            return 1
-        return self.map[ty][tx]
-
-    def get_all_wall_rects(self):
-        """Return a list of pygame.Rect for all wall tiles in world coordinates."""
-        rects = []
-        for r, row in enumerate(self.map):
-            for c, t in enumerate(row):
-                if t == 1:
-                    rects.append(pygame.Rect(c * self.tile_size, r * self.tile_size, self.tile_size, self.tile_size))
-        return rects
-
-    def draw(self, surface, camera_x, camera_y):
-        """Draw the entire tile map to the surface. This is intentionally brute-force and inefficient.
-
-        Each tile is drawn regardless of whether it is visible on-screen.
-        This is inefficient and should be improved later.
+        Returns walls near the entity. Uses i, j for grid coordinates.
         """
-        ts = self.tile_size
-        for row_index, row in enumerate(self.map):
-            for col_index, tile in enumerate(row):
-                px = col_index * ts - camera_x
-                py = row_index * ts - camera_y
-                color = self.settings.color_wall if tile == 1 else self.settings.color_floor
-                # draw rectangle tile
-                pygame.draw.rect(surface, color, (px, py, ts, ts))
+        walls = []
+        start_col = max(0, int(rect.left // self.tile_size) - 1)
+        end_col = min(self.cols, int(rect.right // self.tile_size) + 2)
+        start_row = max(0, int(rect.top // self.tile_size) - 1)
+        end_row = min(self.rows, int(rect.bottom // self.tile_size) + 2)
+
+        for i in range(start_row, end_row):
+            for j in range(start_col, end_col):
+                if self.map_data[i][j] == 1:
+                    walls.append(pygame.Rect(j * self.tile_size, i * self.tile_size,
+                                             self.tile_size, self.tile_size))
+
+        return walls
+
+    def draw(self, surface, cam_x, cam_y):
+        """
+        Draws visible tiles. Uses i, j for grid coordinates.
+        """
+        start_col = max(0, int(cam_x // self.tile_size))
+        end_col = min(self.cols, int((cam_x + self.settings.screen_width) // self.tile_size) + 1)
+        start_row = max(0, int(cam_y // self.tile_size))
+        end_row = min(self.rows, int((cam_y + self.settings.screen_height) // self.tile_size) + 1)
+
+        for i in range(start_row, end_row):
+            for j in range(start_col, end_col):
+                if self.map_data[i][j] == 1:
+                    draw_x = j * self.tile_size - cam_x
+                    draw_y = i * self.tile_size - cam_y
+                    pygame.draw.rect(surface, self.settings.color_wall,
+                                     (draw_x, draw_y, self.tile_size, self.tile_size))

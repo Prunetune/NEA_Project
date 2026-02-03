@@ -1,38 +1,79 @@
 class Settings:
-    """Holds configurable settings for the game."""
+    """
+    Holds all configurable settings for the game.
+    """
 
     def __init__(self):
-        # window size
-        self.screen_width = 800
-        self.screen_height = 800
+        """
+        Initialize the game's static settings.
+        """
+        # --- Window Settings (16:9) ---
+        self.screen_width = 1280
+        self.screen_height = 720
+        self.fps = 60
 
-        # Player Stats
+        # --- Map Generation ---
+        self.tile_size = 32
+        self.repeat_x = 10
+        self.repeat_y = 10
+        self.map_width_tiles = 10 * self.repeat_x
+        self.map_height_tiles = 7 * self.repeat_y
+
+        # --- Spawns ---
+        self.enemy_spawn_count = 15
+        self.trap_spawn_count = 10
+
+        # --- HUD (UI) ---
+        self.hud_bar_width = 200
+        self.hud_bar_height = 20
+        self.hud_offset_x = 20
+        self.hud_offset_y_hp = 20
+        self.hud_offset_y_mana = 50
+
+        # --- Player Stats ---
         self.max_health = 100
         self.player_health = 100
-        self.player_speed = 4               # pixels per frame
-        self.dash_cooldown = 500            # the number of frames passed until another dash can be made
-        self.dash_speed = 6                 # speed of the players dash
-        self.dash_duration = 180            # duration of the dash in ms
+        self.player_speed = 5
+        self.player_max_mana = 100
+        self.mana_regen = 0.1
+        self.spell_cost = 15
+        self.player_size = 28
+        self.iframe_duration = 300
 
-        # Tile / map sizes
-        self.tile_size = 32                 # each tile is 32x32 pixels
-        self.player_size = 28               # player is 28x28 pixels
+        # --- Dash Ability ---
+        self.dash_cooldown = 500
+        self.dash_speed = 10
+        self.dash_duration = 150
 
-        # Timing
-        self.fps = 60                       # baseline frames per second
+        # --- Projectile Stats ---
+        self.projectile_speed = 10
+        self.projectile_damage = 25
+        self.projectile_lifetime = 1000
+        self.projectile_cooldown = 800
 
-        # Camera behaviour
-        self.camera_margin = 0.20          # 20% of screen: camera starts to follow
-        self.camera_smoothing = 0.12       # makes the movement of the camera look smooth
+        # --- Enemy/Trap Stats ---
+        self.enemy_health_default = 50
+        self.enemy_damage = 10
+        self.trap_damage = 15
 
-        # Map repetition (4x screen area)
-        # builds a small base pattern and repeat it to reach full world size.
-        self.repeat_x = 4
-        self.repeat_y = 4
+        # Physics
+        self.knockback_strength = 8
+        self.knockback_friction = 0.85
 
-        # Colours
+        # --- Camera ---
+        self.camera_margin = 0.20
+        self.camera_smoothing = 0.12
+
+        # --- Colors ---
         self.color_bg = (20, 20, 20)
         self.color_floor = (40, 40, 40)
         self.color_wall = (100, 100, 100)
         self.color_player = (0, 200, 0)
-
+        self.color_enemy = (200, 0, 0)
+        self.color_projectile = (0, 255, 255)
+        self.color_trap = (150, 0, 200)
+        self.color_hud_bg = (50, 50, 50)
+        self.color_hp = (0, 200, 0)
+        self.color_hp_bg = (100, 0, 0)
+        self.color_mana = (0, 100, 255)
+        self.color_border = (255, 255, 255)

@@ -1,44 +1,46 @@
+import pygame
+
+
 class CameraController:
-    """Manage camera position and smooth following behaviour."""
+    """
+    Manages the 'Camera' viewport.
+    """
 
     def __init__(self, settings):
+        """
+        Start the camera at 0,0.
+        """
         self.settings = settings
         self.camera_x = 0.0
         self.camera_y = 0.0
 
     def update(self, player):
-        """Adjust camera_x and camera_y so the player stays inside defined margins."""
+        """
+        Follow player and clamp to map bounds.
+        """
+        target_x = player.x - self.settings.screen_width / 2
+        target_y = player.y - self.settings.screen_height / 2
 
-        # the camera updates separately for the x and y axes and uses linear interpolation
-        # to move smoothly toward target offsets
+        # Smooth movement
+        self.camera_x += (target_x - self.camera_x) * self.settings.camera_smoothing
+        self.camera_y += (target_y - self.camera_y) * self.settings.camera_smoothing
 
-        screen_width = self.settings.screen_width
-        screen_height = self.settings.screen_height
-        margin_x = screen_width * self.settings.camera_margin
-        margin_y = screen_height * self.settings.camera_margin
+        # Clamping
+        map_pixel_width = self.settings.map_width_tiles * self.settings.tile_size
+        map_pixel_height = self.settings.map_height_tiles * self.settings.tile_size
 
-        # player position relative to the camera
-        player_screen_x = player.x - self.camera_x
-        player_screen_y = player.y - self.camera_y
-
-        target_x = self.camera_x
-        target_y = self.camera_y
-
-        if player_screen_x + player.size > screen_width - margin_x:
-            target_x += (player_screen_x + player.size) - (screen_width - margin_x)
-        elif player_screen_x < margin_x:
-            target_x -= margin_x - player_screen_x
-
-        if player_screen_y + player.size > screen_height - margin_y:
-            target_y += (player_screen_y + player.size) - (screen_height - margin_y)
-        elif player_screen_y < margin_y:
-            target_y -= margin_y - player_screen_y
-
-        # linear interpolation towards the target camera position
-        lerp = self.settings.camera_smoothing
-        self.camera_x += (target_x - self.camera_x) * lerp
-        self.camera_y += (target_y - self.camera_y) * lerp
+        self.camera_x = max(0, int(min(self.camera_x, map_pixel_width - self.settings.screen_width)))
+        self.camera_y = max(0, int(min(self.camera_y, map_pixel_height - self.settings.screen_height)))
 
     def get_offsets(self):
-        """Return integer camera offsets for drawing (camera_x, camera_y)."""
+        """
+        Returns integer camera coordinates.
+        """
         return int(self.camera_x), int(self.camera_y)
+
+    def get_view_rect(self):
+        """
+        Returns the camera's view rectangle.
+        """
+        return pygame.Rect(self.camera_x, self.camera_y,
+                           self.settings.screen_width, self.settings.screen_height)
