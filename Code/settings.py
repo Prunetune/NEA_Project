@@ -35,15 +35,15 @@ class Settings:
         self.player_health = 100
         self.player_speed = 5
         self.player_max_mana = 100
-        self.mana_regen = 0.1
+        self.mana_regen = 0.5
         self.spell_cost = 15
         self.player_size = 28
-        self.iframe_duration = 300
+        self.iframe_duration = 1000
 
-        # --- Dash Ability ---
-        self.dash_cooldown = 500
-        self.dash_speed = 10
-        self.dash_duration = 150
+        # --- Dash Physics (Smooth) ---
+        self.dash_cooldown = 600
+        self.dash_force = 25
+        self.dash_friction = 0.85
 
         # --- Projectile Stats ---
         self.projectile_speed = 10
@@ -56,8 +56,8 @@ class Settings:
         self.enemy_damage = 10
         self.trap_damage = 15
 
-        # Physics
-        self.knockback_strength = 8
+        # Knockback Physics
+        self.knockback_strength = 15
         self.knockback_friction = 0.85
 
         # --- Camera ---

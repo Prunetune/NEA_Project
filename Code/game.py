@@ -53,7 +53,7 @@ class Game:
             ty = random.randint(1, self.settings.map_height_tiles - 2)
 
             if self.tile_map.map_data[ty][tx] == 0:
-                return (tx * self.settings.tile_size, ty * self.settings.tile_size)
+                return tx * self.settings.tile_size, ty * self.settings.tile_size
 
     def populate_world(self):
         """
