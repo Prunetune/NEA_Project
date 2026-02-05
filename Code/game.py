@@ -100,7 +100,7 @@ class Game:
             visible_traps = [t for t in self.traps if view_rect.colliderect(t.rect)]
 
             for i in visible_enemies:
-                i.update(self.collision, self.player)
+                i.update(self.collision, self.player, self.tile_map)
 
             for i in visible_traps:
                 i.update(self.collision, self.player)

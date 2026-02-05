@@ -55,6 +55,11 @@ class Settings:
         self.enemy_health_default = 50
         self.enemy_damage = 10
         self.trap_damage = 15
+        self.enemy_speed = 2.5
+        self.enemy_search_dist = 400
+        self.enemy_repath_rate = 1200
+        self.enemy_node_limit = 40
+        self.enemy_map_check_bias = 0.2
 
         # Knockback Physics
         self.knockback_strength = 15
