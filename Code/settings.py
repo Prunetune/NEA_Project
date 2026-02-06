@@ -20,7 +20,7 @@ class Settings:
         self.map_height_tiles = 7 * self.repeat_y
 
         # --- Spawns ---
-        self.enemy_spawn_count = 15
+        self.enemy_spawn_count = 30
         self.trap_spawn_count = 10
 
         # --- HUD (UI) ---
@@ -57,7 +57,7 @@ class Settings:
         self.trap_damage = 15
         self.enemy_speed = 2.5
         self.enemy_search_dist = 400
-        self.enemy_repath_rate = 1200
+        self.enemy_repath_rate = 1
         self.enemy_node_limit = 40
         self.enemy_map_check_bias = 0.2
 
