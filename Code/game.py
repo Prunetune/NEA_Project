@@ -11,6 +11,7 @@ from .collisionDetection import CollisionDetection
 from .hud import HUD
 from .enemy import Enemy
 from .trap import Trap
+from .archer import Archer
 
 
 class Game:

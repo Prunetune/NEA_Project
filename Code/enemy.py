@@ -125,6 +125,7 @@ class Enemy(pygame.sprite.Sprite):
         if self.rect.colliderect(player.rect):
             player.take_damage(self.damage)
 
+
     def draw(self, surface, cam_x, cam_y):
         """
         Draw relative to camera.

@@ -34,7 +34,9 @@ class Player(pygame.sprite.Sprite):
 
         self.dash_timer = CooldownTimer(settings.dash_cooldown)
         self.shoot_timer = CooldownTimer(settings.projectile_cooldown)
+        self.heal_timer = CooldownTimer(settings.heal_cooldown)
         self.last_hit_time = 0
+        self.spell= 1
 
     def handle_input(self, cam_x, cam_y):
         """
@@ -60,6 +62,12 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_s]:
                 self.vel_y = speed
 
+            if keys[pygame.K_1]:
+                self.spell_selection(1)
+
+            if keys[pygame.K_2]:
+                self.spell_selection(2)
+
         # --- DASH (Shift) - PHYSICS BASED ---
         if keys[pygame.K_LSHIFT] and self.dash_timer.is_ready():
             # Check if we are moving
@@ -79,11 +87,27 @@ class Player(pygame.sprite.Sprite):
         # --- SHOOT (Left Click) ---
         mouse_buttons = pygame.mouse.get_pressed()
 
-        if mouse_buttons[0] and self.mana >= self.settings.spell_cost and self.shoot_timer.is_ready():
-            self.shoot_timer.trigger()
-            return self.create_projectile(cam_x, cam_y)
+        if self.spell == 1:
+            if mouse_buttons[0] and self.mana > self.settings.heal_spell_cost and self.heal_timer.is_ready() and self.health < self.settings.max_health:
+                self.mana -= self.settings.heal_spell_cost
+                self.health += self.settings.heal_spell_amount
+                self.heal_timer.trigger()
+
+        if self.spell == 2:
+            if mouse_buttons[0] and self.mana >= self.settings.water_bullet_spell_cost and self.shoot_timer.is_ready():
+                self.shoot_timer.trigger()
+                return self.create_projectile(cam_x, cam_y)
 
         return None
+
+    def spell_selection(self,choice):
+
+    ## --- Heal Spell --- #
+        if choice == 1:
+            self.spell = 1
+    # --- water bullet spell --- #
+        if choice == 2:
+            self.spell = 2
 
     def create_projectile(self, cam_x, cam_y):
         """
@@ -96,7 +120,7 @@ class Player(pygame.sprite.Sprite):
         direction = (world_mouse - player_center)
         if direction.length() > 0:
             direction = direction.normalize()
-            self.mana -= self.settings.spell_cost
+            self.mana -= self.settings.water_bullet_spell_cost
             return Projectile(self.settings, player_center.x, player_center.y, direction)
 
         return None
