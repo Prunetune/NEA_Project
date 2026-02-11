@@ -21,7 +21,7 @@ class Enemy(pygame.sprite.Sprite):
         self.rect = self.image.get_rect(topleft=(x, y))
 
         self.pos = pygame.Vector2(x, y)
-        self.health = settings.enemy_health_default
+        self.health = settings.enemy_health
         self.damage = settings.enemy_damage
         self.last_hit_time = 0
 

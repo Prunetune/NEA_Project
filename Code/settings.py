@@ -55,13 +55,22 @@ class Settings:
         self.projectile_cooldown = 800
 
         # --- Enemy/Trap Stats ---#
-        self.enemy_health_default = 50
+        self.enemy_health = 50
         self.enemy_damage = 10
         self.enemy_speed = 2.5
         self.enemy_search_dist = 400
         self.enemy_repath_rate = 1
         self.enemy_node_limit = 40
         self.enemy_map_check_bias = 0.2
+
+        # --- Archer Stats ---#
+        self.archer_health = 30
+        self.archer_damage = 20
+        self.archer_speed = 5
+        self.archer_search_dist = 400
+        self.archer_repath_rate = 1
+        self.archer_node_limit = 40
+        self.archer_map_check_bias = 0.2
 
         # --- Trap Stats ---#
         self.trap_damage = 15
@@ -87,4 +96,4 @@ class Settings:
         self.color_hp_bg = (100, 0, 0)
         self.color_mana = (0, 100, 255)
         self.color_border = (255, 255, 255)
-        self.archer_color = (71, 99, 30)
+        self.color_archer = (71, 99, 30)
