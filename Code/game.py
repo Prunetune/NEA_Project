@@ -64,6 +64,10 @@ class Game:
             pos = self.get_safe_spawn_point()
             self.enemies.add(Enemy(self.settings, pos[0], pos[1]))
 
+        for i in range(self.settings.enemy_spawn_count):
+            pos = self.get_safe_spawn_point()
+            self.enemies.add(Archer(self.settings, pos[0], pos[1]))
+
         for i in range(self.settings.trap_spawn_count):
             pos = self.get_safe_spawn_point()
             self.traps.add(Trap(self.settings, pos[0], pos[1]))
@@ -93,7 +97,10 @@ class Game:
             self.player.update(self.collision, nearby_walls)
 
             # 2. Enemy Collision (Knockback)
-            self.collision.resolve_enemy_collision(self.player, self.enemies)
+            if not self.player.is_dashing:
+                self.collision.resolve_enemy_collision(self.player, self.enemies)
+            else:
+                print("dodge")
 
             self.camera.update(self.player)
 

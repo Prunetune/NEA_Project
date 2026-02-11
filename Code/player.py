@@ -36,6 +36,7 @@ class Player(pygame.sprite.Sprite):
         self.shoot_timer = CooldownTimer(settings.projectile_cooldown)
         self.heal_timer = CooldownTimer(settings.heal_cooldown)
         self.last_hit_time = 0
+        self.is_dashing = False
         self.spell= 1
 
     def handle_input(self, cam_x, cam_y):
@@ -68,9 +69,9 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_2]:
                 self.spell_selection(2)
 
-        # --- DASH (Shift) - PHYSICS BASED ---
+        # --- DASH (Shift) ---
         if keys[pygame.K_LSHIFT] and self.dash_timer.is_ready():
-            # Check if we are moving
+            # Check if the player is moving
             if self.vel_x != 0 or self.vel_y != 0:
                 # Calculate normalized direction
                 move_dir = pygame.Vector2(self.vel_x, self.vel_y)
@@ -83,6 +84,7 @@ class Player(pygame.sprite.Sprite):
 
                 # Start Cooldown
                 self.dash_timer.trigger()
+                self.is_dashing = True
 
         # --- SHOOT (Left Click) ---
         mouse_buttons = pygame.mouse.get_pressed()
@@ -105,6 +107,7 @@ class Player(pygame.sprite.Sprite):
     ## --- Heal Spell --- #
         if choice == 1:
             self.spell = 1
+
     # --- water bullet spell --- #
         if choice == 2:
             self.spell = 2
@@ -190,6 +193,11 @@ class Player(pygame.sprite.Sprite):
         # 6. Sync Rect
         self.rect.x = int(self.x)
         self.rect.y = int(self.y)
+
+        ## --- Stats Check ---
+
+        if self.health > self.settings.max_health:
+            self.health = self.settings.max_health
 
     def draw(self, surface, cam_x, cam_y):
         """
