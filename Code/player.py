@@ -36,7 +36,6 @@ class Player(pygame.sprite.Sprite):
         self.shoot_timer = CooldownTimer(settings.projectile_cooldown)
         self.heal_timer = CooldownTimer(settings.heal_cooldown)
         self.last_hit_time = 0
-        self.is_dashing = False
         self.spell= 1
 
     def handle_input(self, cam_x, cam_y):

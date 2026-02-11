@@ -13,12 +13,11 @@ class TileMap:
         self.settings = settings
         self.tile_size = settings.tile_size
 
-        # Base Pattern (10x7) - WIDENED CORRIDORS
+        # Base Pattern (10x7)
         # 1 = Wall, 0 = Floor
-        # More 0s in the middle means wider spaces
         self.base_pattern = [
             [1, 1, 1, 0, 0, 0, 0, 1, 1, 1],
-            [1, 0, 1, 0, 0, 0, 0, 1, 1, 1],
+            [1, 1, 1, 0, 0, 0, 0, 1, 1, 1],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],
             [0, 0, 0, 0, 0, 0, 0, 0, 0, 0],

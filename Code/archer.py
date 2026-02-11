@@ -20,3 +20,5 @@ class Archer(Enemy):
         self.state = "IDLE"
         self.path = []
         self.repath_timer = CooldownTimer(settings.archer_repath_rate)
+
+    def fire_projectile(self,):
