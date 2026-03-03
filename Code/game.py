@@ -97,10 +97,7 @@ class Game:
             self.player.update(self.collision, nearby_walls)
 
             # 2. Enemy Collision (Knockback)
-            if not self.player.is_dashing:
-                self.collision.resolve_enemy_collision(self.player, self.enemies)
-            if self.player.is_dashing:
-                print("dodge")
+            self.collision.resolve_enemy_collision(self.player, self.enemies)
 
             self.camera.update(self.player)
 

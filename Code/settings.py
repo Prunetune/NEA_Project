@@ -71,6 +71,7 @@ class Settings:
         self.archer_repath_rate = 1
         self.archer_node_limit = 40
         self.archer_map_check_bias = 0.2
+        self.archer_attack_cooldown = 800
 
         # --- Trap Stats ---#
         self.trap_damage = 15

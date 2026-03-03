@@ -148,6 +148,10 @@ class Player(pygame.sprite.Sprite):
             if self.health < 0:
                 self.health = 0
 
+    def get_position(self):
+        """Return the player's current position as a tuple."""
+        return self.rect.center
+
     def update(self, collision_machine, walls):
         """
         Physics and Updates.
