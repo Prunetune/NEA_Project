@@ -119,7 +119,7 @@ class Player(pygame.sprite.Sprite):
         world_mouse = mouse_pos + pygame.Vector2(cam_x, cam_y)
         player_center = pygame.Vector2(self.rect.center)
 
-        direction = (world_mouse - player_center)
+        direction = world_mouse - player_center
         if direction.length() > 0:
             direction = direction.normalize()
             self.mana -= self.settings.water_bullet_spell_cost

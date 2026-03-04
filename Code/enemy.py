@@ -85,7 +85,7 @@ class Enemy(pygame.sprite.Sprite):
                             open_list.append((f, neighbor))
         return []
 
-    def update(self, collision_machine, player, tile_map):
+    def update(self, collision_machine, player, tile_map,):
         """
         Update position and pathfinding state.
         """

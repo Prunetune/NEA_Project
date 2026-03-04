@@ -1,4 +1,6 @@
 import pygame
+
+from .projectiles import Projectile
 from .timer import CooldownTimer
 from.enemy import Enemy
 
@@ -28,9 +30,16 @@ class Archer(Enemy):
 
     def fire_projectiles(self, target):
         if self.attack_cooldown.is_ready():
+            print("test 1") ## Checks to make sure it makes it through first condition
             player_postition= target
             postition = self.pos
 
+            direction = player_postition - postition
+            if 0 < direction.length() <= 1000:
+                print("test 2") ## Checks to make sure it makes it through second condition
+                direction = direction.normalize()
+                return Projectile(self.settings, self.pos.x, self.pos.y, direction)
+        return None
 
     def update(self, collision_machine, player, tile_map):
         """
@@ -69,7 +78,7 @@ class Archer(Enemy):
 
         self.rect.topleft = (int(self.pos.x), int(self.pos.y))
 
-        self.fire_projectiles(player)
+        self.fire_projectiles(player.get_position())
 
         if self.rect.colliderect(player.rect):
             player.take_damage(self.damage)
