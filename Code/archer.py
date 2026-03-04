@@ -35,7 +35,7 @@ class Archer(Enemy):
             postition = self.pos
 
             direction = player_postition - postition
-            if 0 < direction.length() <= 1000:
+            if 0 < direction.length() <= 100:
                 print("test 2") ## Checks to make sure it makes it through second condition
                 direction = direction.normalize()
                 return Projectile(self.settings, self.pos.x, self.pos.y, direction)
