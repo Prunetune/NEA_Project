@@ -48,6 +48,15 @@ class Settings:
         self.dash_force = 25
         self.dash_friction = 0.85
 
+        # --- Fireball Spell --- #
+        self.fireball_spell_cost = 30
+        self.fireball_damage = 40
+        self.fireball_speed = 8
+        self.fireball_aoe_radius = 100
+        self.fireball_trail_length = 6
+        self.color_fireball = (255, 100, 0)
+        self.color_explosion = (255, 200, 0)
+
         # --- Projectile Stats ---#
         self.projectile_speed = 10
         self.projectile_damage = 25

@@ -1,6 +1,7 @@
 import pygame
 from .timer import CooldownTimer
 from .projectiles import Projectile
+from .fireball import Fireball
 
 
 class Player(pygame.sprite.Sprite):
@@ -36,7 +37,7 @@ class Player(pygame.sprite.Sprite):
         self.shoot_timer = CooldownTimer(settings.projectile_cooldown)
         self.heal_timer = CooldownTimer(settings.heal_cooldown)
         self.last_hit_time = 0
-        self.spell= 1
+        self.spell= 3
 
     def handle_input(self, cam_x, cam_y):
         """
@@ -67,6 +68,9 @@ class Player(pygame.sprite.Sprite):
 
             if keys[pygame.K_2]:
                 self.spell_selection(2)
+
+            if keys[pygame.K_3]:
+                self.spell_selection(3)
 
         # --- DASH (Shift) ---
         if keys[pygame.K_LSHIFT] and self.dash_timer.is_ready():
@@ -99,6 +103,11 @@ class Player(pygame.sprite.Sprite):
                 self.shoot_timer.trigger()
                 return self.create_projectile(cam_x, cam_y)
 
+        if mouse_buttons[0] and self.spell == 3 and self.shoot_timer.is_ready():
+            if self.mana >= self.settings.fireball_spell_cost:
+                self.shoot_timer.trigger()
+                return self.create_fireball(cam_x, cam_y)
+
         return None
 
     def spell_selection(self,choice):
@@ -110,6 +119,11 @@ class Player(pygame.sprite.Sprite):
     # --- water bullet spell --- #
         if choice == 2:
             self.spell = 2
+
+    # --- Fireball spell ---#
+
+        if choice == 3:
+            self.spell = 3
 
     def create_projectile(self, cam_x, cam_y):
         """
@@ -125,6 +139,20 @@ class Player(pygame.sprite.Sprite):
             self.mana -= self.settings.water_bullet_spell_cost
             return Projectile(self.settings, player_center.x, player_center.y, direction)
 
+        return None
+
+    def create_fireball(self, cam_x, cam_y):
+        """Creates a fireball aimed at mouse."""
+        mouse_pos = pygame.Vector2(pygame.mouse.get_pos())
+        world_mouse = mouse_pos + pygame.Vector2(cam_x, cam_y)
+        player_center = pygame.Vector2(self.rect.center)
+        direction = world_mouse - player_center
+
+        if direction.length() > 0:
+            direction = direction.normalize()
+            self.mana -= self.settings.fireball_spell_cost
+            print("this exsists")
+            return Fireball(self.settings, player_center.x, player_center.y, direction)
         return None
 
     def apply_knockback(self, direction_vector):

@@ -22,7 +22,6 @@ class Projectile(pygame.sprite.Sprite):
         self.vel = direction_vector * settings.projectile_speed
         self.spawn_time = pygame.time.get_ticks()
 
-        print("this exsists")
 
     def update(self, collision_machine, tile_map, enemies):
         """
@@ -60,4 +59,3 @@ class Projectile(pygame.sprite.Sprite):
         draw_rect.x -= cam_x
         draw_rect.y -= cam_y
         surface.blit(self.image, draw_rect)
-        print("this has been drawn")
