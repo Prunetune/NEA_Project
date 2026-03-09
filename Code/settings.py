@@ -35,27 +35,31 @@ class Settings:
         self.player_health = 100
         self.player_speed = 5
         self.player_max_mana = 100
-        self.mana_regen = 0.5
+        self.mana_regen = 0.3
         self.water_bullet_spell_cost = 15
-        self.heal_spell_cost = 10
-        self.heal_spell_amount = 10
-        self.heal_cooldown = 800
         self.player_size = 28
         self.iframe_duration = 1000
 
-        # --- Dash Physics (Smooth) --- #
+        # --- Dash Physics --- #
         self.dash_cooldown = 600
         self.dash_force = 25
         self.dash_friction = 0.85
 
         # --- Fireball Spell --- #
-        self.fireball_spell_cost = 30
+        self.fireball_spell_cost = 40
         self.fireball_damage = 40
-        self.fireball_speed = 8
-        self.fireball_aoe_radius = 100
-        self.fireball_trail_length = 6
-        self.color_fireball = (255, 100, 0)
-        self.color_explosion = (255, 200, 0)
+        self.fireball_speed = 12
+        self.fireball_height = 16
+        self.fireball_width = 16
+        self.fireball_aoe_radius = 10
+        self.fireball_max_aoe_radius = 100
+        self.fireball_trail_length = 10
+        self.fireball_alpha = 255
+
+        # --- Heal Spell ---#
+        self.heal_spell_cost = 10
+        self.heal_spell_amount = 10
+        self.heal_cooldown = 800
 
         # --- Projectile Stats ---#
         self.projectile_speed = 10
@@ -82,10 +86,10 @@ class Settings:
         self.archer_map_check_bias = 0.2
         self.archer_attack_cooldown = 800
 
-        # --- Trap Stats ---#
+        # --- Trap Stats --- #
         self.trap_damage = 15
 
-        # Knockback Physics
+        #  --- Knockback Physics --- #
         self.knockback_strength = 15
         self.knockback_friction = 0.85
 
@@ -107,3 +111,5 @@ class Settings:
         self.color_mana = (0, 100, 255)
         self.color_border = (255, 255, 255)
         self.color_archer = (71, 99, 30)
+        self.color_fireball = (255, 100, 0)
+        self.color_explosion = (255, 200, 0)

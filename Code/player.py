@@ -20,9 +20,9 @@ class Player(pygame.sprite.Sprite):
         self.image = pygame.Surface((self.size, self.size))
         self.image.fill(settings.color_player)
         self.rect = self.image.get_rect(topleft=(x, y))
-
-        self.x = float(x)
-        self.y = float(y)
+        self.pos = pygame.Vector2(x, y)
+        self.x = float(self.pos.x)
+        self.y = float(self.pos.y)
 
         # Vectors
         self.vel_x = 0
@@ -151,7 +151,6 @@ class Player(pygame.sprite.Sprite):
         if direction.length() > 0:
             direction = direction.normalize()
             self.mana -= self.settings.fireball_spell_cost
-            print("this exsists")
             return Fireball(self.settings, player_center.x, player_center.y, direction)
         return None
 

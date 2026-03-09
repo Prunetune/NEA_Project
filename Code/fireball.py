@@ -7,7 +7,7 @@ class Fireball(pygame.sprite.Sprite):
     def __init__(self, settings, x, y, direction):
         super().__init__()
         self.settings = settings
-        self.image = pygame.Surface((16, 16), pygame.SRCALPHA)
+        self.image = pygame.Surface((settings.fireball_height,settings.fireball_width), pygame.SRCALPHA)
         pygame.draw.circle(self.image, settings.color_fireball, (8, 8), 8)
         self.rect = self.image.get_rect(center=(x, y))
         self.pos = pygame.Vector2(x, y)
@@ -37,8 +37,9 @@ class Fireball(pygame.sprite.Sprite):
         """Deals AoE damage and spawns the visual effect."""
         for enemy in enemies:
             enemy_pos = pygame.Vector2(enemy.rect.center)
-            if self.pos.distance_to(enemy_pos) <= self.settings.fireball_aoe_radius:
+            if self.pos.distance_to(enemy_pos) <= self.settings.fireball_max_aoe_radius:
                 enemy.take_damage(self.settings.fireball_damage)
+
 
         # Add visual explosion to the same group as the fireball
         explosion = Explosion(self.settings, self.pos.x, self.pos.y)

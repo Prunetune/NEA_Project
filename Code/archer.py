@@ -41,44 +41,7 @@ class Archer(Enemy):
                 return Projectile(self.settings, self.pos.x, self.pos.y, direction)
         return None
 
-    def update(self, collision_machine, player, tile_map):
-        """
-               Update position, pathfinding  and projectile spawning.
-               """
-        dist = self.get_distance_to_target(pygame.Vector2(player.rect.center))
-
-        if self.state == "IDLE":
-            if dist < self.settings.enemy_search_dist:
-                self.state = "CHASE"
-
-        elif self.state == "CHASE":
-            if dist > self.settings.enemy_search_dist + 100:
-                self.state = "IDLE"
-                self.path = []
-
-            if not self.path or self.repath_timer.is_ready():
-                start_tile = (int(self.rect.centerx // self.settings.tile_size),
-                              int(self.rect.centery // self.settings.tile_size))
-                target_tile = (int(player.rect.centerx // self.settings.tile_size),
-                               int(player.rect.centery // self.settings.tile_size))
-                self.path = self.calculate_path(start_tile, target_tile, tile_map)
-                self.repath_timer.trigger()
-
-            if self.path:
-                node = self.path[0]
-                target_px = pygame.Vector2(node[0] * self.settings.tile_size,
-                                           node[1] * self.settings.tile_size)
-
-                direction = target_px - self.pos
-                if direction.length() > 2:
-                    velocity = direction.normalize() * self.settings.enemy_speed
-                    self.pos += velocity
-                else:
-                    self.path.pop(0)
-
-        self.rect.topleft = (int(self.pos.x), int(self.pos.y))
-
-        self.fire_projectiles(player.get_position())
-
-        if self.rect.colliderect(player.rect):
-            player.take_damage(self.damage)
+    #def update(self, collision_machine, player, tile_map):
+    #    super().update(collision_machine,player,tile_map)
+#
+    #    self.fire_projectiles(player.pos)

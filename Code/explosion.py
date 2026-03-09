@@ -6,9 +6,9 @@ class Explosion(pygame.sprite.Sprite):
         super().__init__()
         self.settings = settings
         self.pos = pygame.Vector2(x, y)
-        self.radius = 10
-        self.max_radius = settings.fireball_aoe_radius
-        self.alpha = 255
+        self.radius = settings.fireball_aoe_radius
+        self.max_radius = settings.fireball_max_aoe_radius
+        self.alpha = settings.fireball_alpha
         self.rect = pygame.Rect(x, y, 1, 1)  # Needed for group compatibility
 
     def update(self, *args):
