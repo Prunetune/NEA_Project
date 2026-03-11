@@ -39,7 +39,7 @@ class Archer(Enemy):
             position = self.pos
 
             direction = player_position - position
-            if 0 < direction.length() <= 100:
+            if 0 < direction.length() <= 500:
                 #print("test 2") ## Checks to make sure it makes it through second condition, THIS CHECK COMPLETES
                 direction = direction.normalize()
                 self.attack_cooldown.trigger()

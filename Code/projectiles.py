@@ -14,7 +14,7 @@ class Projectile(pygame.sprite.Sprite):
         self.settings = settings
         self.damage = settings.projectile_damage
 
-        self.image = pygame.Surface((10, 10))
+        self.image = pygame.Surface((10,10))
         self.image.fill(settings.color_projectile)
         self.rect = self.image.get_rect(center=(x, y))
 

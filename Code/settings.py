@@ -72,16 +72,16 @@ class Settings:
         self.enemy_health = 50
         self.enemy_damage = 10
         self.enemy_speed = 2.5
-        self.enemy_search_dist = 400
+        self.enemy_search_dist = 600
         self.enemy_repath_rate = 1
         self.enemy_node_limit = 40
         self.enemy_map_check_bias = 0.2
 
         # --- Archer Stats ---#
         self.archer_health = 30
-        self.archer_damage = 20
+        self.archer_damage = 5
         self.archer_speed = 10
-        self.archer_search_dist = 400
+        self.archer_search_dist = 600
         self.archer_repath_rate = 1
         self.archer_node_limit = 40
         self.archer_map_check_bias = 0.2
