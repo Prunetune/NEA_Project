@@ -117,7 +117,11 @@ class Game:
 
             for i in visible_enemies:
                 if i.get_enemy_id() == "Archer":
-                    print("We have found an archer")
+                    temp = i.fire_projectiles(self.player.pos)
+                    if temp == None:
+                        break
+                    else:
+                        self.projectiles.add(temp)
 
 
             # FIX: Pass self.tile_map so projectiles check their OWN nearby walls
