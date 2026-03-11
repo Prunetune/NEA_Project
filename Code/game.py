@@ -72,6 +72,9 @@ class Game:
             pos = self.get_safe_spawn_point()
             self.traps.add(Trap(self.settings, pos[0], pos[1]))
 
+
+
+
     def run(self):
         """
         Main Loop.
@@ -92,6 +95,8 @@ class Game:
             if new_projectile:
                 self.projectiles.add(new_projectile)
 
+
+
             # 1. Physics & Wall Collision
             nearby_walls = self.tile_map.get_nearby_walls(self.player.rect)
             self.player.update(self.collision, nearby_walls)
@@ -109,6 +114,11 @@ class Game:
 
             for i in visible_traps:
                 i.update(self.collision, self.player)
+
+            for i in visible_enemies:
+                if i.get_enemy_id() == "Archer":
+                    print("We have found an archer")
+
 
             # FIX: Pass self.tile_map so projectiles check their OWN nearby walls
             self.projectiles.update(self.collision, self.tile_map, self.enemies)

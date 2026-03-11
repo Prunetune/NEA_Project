@@ -27,21 +27,23 @@ class Archer(Enemy):
         self.state = "IDLE"
         self.path = []
         self.repath_timer = CooldownTimer(settings.archer_repath_rate)
+        self.enemy_id = "Archer"
 
     def fire_projectiles(self, target):
         if self.attack_cooldown.is_ready():
-            #print("test 1") ## Checks to make sure it makes it through first condition
-            player_postition= target
-            postition = self.pos
+            #print("test 1") ## Checks to make sure it makes it through first condition,THIS CHECK COMPLETES
+            player_position = target
+            position = self.pos
 
-            direction = player_postition - postition
+            direction = player_position - position
             if 0 < direction.length() <= 100:
-                #print("test 2") ## Checks to make sure it makes it through second condition
+                #print("test 2") ## Checks to make sure it makes it through second condition, THIS CHECK COMPLETES
                 direction = direction.normalize()
                 return Projectile(self.settings, self.pos.x, self.pos.y, direction)
         return None
 
-    #def update(self, collision_machine, player, tile_map):
-    #    super().update(collision_machine,player,tile_map)
-#
-    #    self.fire_projectiles(player.pos)
+    def update(self, collision_machine, player, tile_map):
+         super().update(collision_machine,player,tile_map)
+
+
+

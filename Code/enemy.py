@@ -28,6 +28,7 @@ class Enemy(pygame.sprite.Sprite):
         self.state = "IDLE"
         self.path = []
         self.repath_timer = CooldownTimer(settings.enemy_repath_rate)
+        self.enemy_id = "Enemy"
 
     def take_damage(self, amount):
         """
@@ -41,6 +42,9 @@ class Enemy(pygame.sprite.Sprite):
 
             if self.health <= 0:
                 self.kill()
+
+    def get_enemy_id(self):
+        return self.enemy_id
 
     def get_distance_to_target(self, target_pos):
         """
