@@ -229,6 +229,11 @@ class Player(pygame.sprite.Sprite):
         if self.health > self.settings.max_health:
             self.health = self.settings.max_health
 
+        ## --- Update Vector2 --- #
+
+        self.pos.x=self.x
+        self.pos.y=self.y
+
     def draw(self, surface, cam_x, cam_y):
         """
         Draw relative to camera.
