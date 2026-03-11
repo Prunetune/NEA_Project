@@ -137,7 +137,7 @@ class Player(pygame.sprite.Sprite):
         if direction.length() > 0:
             direction = direction.normalize()
             self.mana -= self.settings.water_bullet_spell_cost
-            return Projectile(self.settings, player_center.x, player_center.y, direction)
+            return Projectile(self.settings, player_center.x, player_center.y, direction, "Player")
 
         return None
 

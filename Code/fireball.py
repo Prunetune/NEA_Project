@@ -14,7 +14,7 @@ class Fireball(pygame.sprite.Sprite):
         self.vel = direction * settings.fireball_speed
         self.trail = []  # Stores [x, y, radius]
 
-    def update(self, collision_machine, tile_map, enemies):
+    def update(self, collision_machine, tile_map, enemies , player):
         # 1. Simple Trail Effect
         self.trail.append([self.pos.x, self.pos.y, 8])
         if len(self.trail) > self.settings.fireball_trail_length:

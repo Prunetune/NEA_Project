@@ -14,6 +14,7 @@ from .trap import Trap
 from .archer import Archer
 
 
+
 class Game:
     """
     Main Game Controller.
@@ -64,7 +65,7 @@ class Game:
             pos = self.get_safe_spawn_point()
             self.enemies.add(Enemy(self.settings, pos[0], pos[1]))
 
-        for i in range(self.settings.enemy_spawn_count):
+        for i in range(self.settings.archer_spawn_count):
             pos = self.get_safe_spawn_point()
             self.enemies.add(Archer(self.settings, pos[0], pos[1]))
 
@@ -125,7 +126,7 @@ class Game:
 
 
             # FIX: Pass self.tile_map so projectiles check their OWN nearby walls
-            self.projectiles.update(self.collision, self.tile_map, self.enemies)
+            self.projectiles.update(self.collision, self.tile_map, self.enemies, self.player)
 
             self.screen.clear()
             self.tile_map.draw(self.surface, cam_x, cam_y)

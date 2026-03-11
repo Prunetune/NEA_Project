@@ -20,7 +20,8 @@ class Settings:
         self.map_height_tiles = 7 * self.repeat_y
 
         # --- Spawns --- #
-        self.enemy_spawn_count = 15
+        self.enemy_spawn_count = 0
+        self.archer_spawn_count= 20
         self.trap_spawn_count = 30
 
         # --- HUD (UI) --- #
@@ -79,12 +80,12 @@ class Settings:
         # --- Archer Stats ---#
         self.archer_health = 30
         self.archer_damage = 20
-        self.archer_speed = 5
+        self.archer_speed = 10
         self.archer_search_dist = 400
         self.archer_repath_rate = 1
         self.archer_node_limit = 40
         self.archer_map_check_bias = 0.2
-        self.archer_attack_cooldown = 800
+        self.archer_attack_cooldown = 700
 
         # --- Trap Stats --- #
         self.trap_damage = 15
