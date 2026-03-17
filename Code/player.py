@@ -132,6 +132,9 @@ class Player(pygame.sprite.Sprite):
         if choice == 3:
             self.spell = 3
 
+        if choice == 4:
+            self.spell = 4
+
     def create_projectile(self, cam_x, cam_y):
         """
         Creates a projectile aimed at mouse.
@@ -164,6 +167,7 @@ class Player(pygame.sprite.Sprite):
     def create_chain_lightning(self,cam_x,cam_y):
         self.mana -= self.settings.lightning_cost
         mouse_pos = pygame.Vector2(pygame.mouse.get_pos() + pygame.Vector2(cam_x,cam_y))
+        print("this has been chosen")
         return ChainLightning(self.settings, self.rect.center , mouse_pos)
 
 
