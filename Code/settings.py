@@ -21,7 +21,7 @@ class Settings:
 
         # --- Spawns --- #
         self.enemy_spawn_count = 0
-        self.archer_spawn_count= 20
+        self.archer_spawn_count= 40
         self.trap_spawn_count = 30
 
         # --- HUD (UI) --- #
@@ -56,6 +56,13 @@ class Settings:
         self.fireball_max_aoe_radius = 100
         self.fireball_trail_length = 10
         self.fireball_alpha = 255
+
+        # --- Lightning Spell --- #
+        self.lightning_damage = 20
+        self.lightning_range = 30
+        self.lightning_cost = 50
+        self.lightning_max_jumps = 6
+        self.lightning_duration = 35
 
         # --- Heal Spell ---#
         self.heal_spell_cost = 10
@@ -114,3 +121,4 @@ class Settings:
         self.color_archer = (71, 99, 30)
         self.color_fireball = (255, 100, 0)
         self.color_explosion = (255, 200, 0)
+        self.color_lightning = (150, 230, 255)

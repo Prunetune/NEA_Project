@@ -2,7 +2,7 @@ import pygame
 from .timer import CooldownTimer
 from .projectiles import Projectile
 from .fireball import Fireball
-
+from .lightning import ChainLightning
 
 class Player(pygame.sprite.Sprite):
     """
@@ -72,6 +72,9 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_3]:
                 self.spell_selection(3)
 
+            if keys[pygame.K_4]:
+                self.spell_selection(4)
+
         # --- DASH (Shift) ---
         if keys[pygame.K_LSHIFT] and self.dash_timer.is_ready():
             # Check if the player is moving
@@ -108,6 +111,10 @@ class Player(pygame.sprite.Sprite):
                 self.shoot_timer.trigger()
                 return self.create_fireball(cam_x, cam_y)
 
+        if self.spell == 4:
+            if mouse_buttons[0] and self.mana >= self.settings.lightning_cost and self.shoot_timer.is_ready():
+                self.shoot_timer.trigger()
+                return self.create_chain_lightning(cam_x,cam_y)
         return None
 
     def spell_selection(self,choice):
@@ -153,6 +160,12 @@ class Player(pygame.sprite.Sprite):
             self.mana -= self.settings.fireball_spell_cost
             return Fireball(self.settings, player_center.x, player_center.y, direction)
         return None
+
+    def create_chain_lightning(self,cam_x,cam_y):
+        self.mana -= self.settings.lightning_cost
+        mouse_pos = pygame.Vector2(pygame.mouse.get_pos() + pygame.Vector2(cam_x,cam_y))
+        return ChainLightning(self.settings, self.rect.center , mouse_pos)
+
 
     def apply_knockback(self, direction_vector):
         """
