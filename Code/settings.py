@@ -20,8 +20,8 @@ class Settings:
         self.map_height_tiles = 7 * self.repeat_y
 
         # --- Spawns --- #
-        self.enemy_spawn_count = 30
-        self.archer_spawn_count= 0
+        self.enemy_spawn_count = 45
+        self.archer_spawn_count= 30
         self.trap_spawn_count = 30
 
         # --- HUD (UI) --- #
@@ -61,7 +61,7 @@ class Settings:
         self.lightning_damage = 20000000
         self.lightning_range = 250
         self.lightning_cost = 50
-        self.lightning_max_jumps = 6
+        self.lightning_max_jumps = 5000
         self.lightning_duration = 300
 
         # --- Heal Spell ---#

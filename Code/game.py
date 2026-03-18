@@ -127,8 +127,7 @@ class Game:
 
             # FIX: Pass self.tile_map so projectiles check their OWN nearby walls
             self.projectiles.update(self.collision, self.tile_map, self.enemies, self.player)
-            for projectile in self.projectiles:
-                print(projectile)
+
 
             self.screen.clear()
             self.tile_map.draw(self.surface, cam_x, cam_y)
@@ -140,7 +139,10 @@ class Game:
                 i.draw(self.surface, cam_x, cam_y)
 
             for i in self.projectiles:
-                i.draw(self.surface, cam_x, cam_y)
+                if i.id == "Lightning":
+                    i.draw(self.surface,cam_x, cam_y , self.player)
+                else:
+                    i.draw(self.surface, cam_x, cam_y)
 
 
 

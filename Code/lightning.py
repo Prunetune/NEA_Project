@@ -30,7 +30,7 @@ class ChainLightning(pygame.sprite.Sprite):
                                     pygame.SRCALPHA)
         self.image.fill(settings.color_projectile)
         self.rect = self.image.get_rect(topleft=(0,0))
-        #print("this has been made")
+
 
         self.id = "Lightning"
     def update(self, collision_machine, tile_map, enemies, player):
@@ -45,7 +45,6 @@ class ChainLightning(pygame.sprite.Sprite):
 
 
 
-        print("this has been updated")
 
     def calculate_chain(self, enemies):
         # start from player / cast position
@@ -79,11 +78,11 @@ class ChainLightning(pygame.sprite.Sprite):
 
                 hit_enemies.append(closest_enemy)
 
-                # reuse vector for points (can cause subtle visual shift)
+                # reuse vector for points
                 cx, cy = closest_enemy.rect.center
                 self.reusable_point.x = cx
                 self.reusable_point.y = cy
-                self.points.append(self.reusable_point)
+                self.points.append(pygame.Vector2(cx,cy))
 
                 current_pos = pygame.Vector2(closest_enemy.rect.center)
             else:
@@ -92,10 +91,7 @@ class ChainLightning(pygame.sprite.Sprite):
 
             damage_applied = False
         # ensure at least a visible start point if no enemies were hit
-        if len(self.points) == 1:
-            self.points.append(self.reusable_point + pygame.Vector2(0, -5))  # tiny visible line
 
-        print("chain has been calculated")
 
     def draw_jagged_line(self, surface, start, end):
         segments = 4
@@ -118,18 +114,18 @@ class ChainLightning(pygame.sprite.Sprite):
             )
 
             current_start = target_end
-        print("this has been drawn jagged")
 
-    def draw(self, surface, cam_x, cam_y):
+    def draw(self, surface, cam_x, cam_y , player):
         # draw line segments
 
+        print(self.points)
 
         if len(self.points) < 2:
             return
+            player.mana += settings.lightning_cost
         for i in range(len(self.points) - 1):
             p1 = self.points[i] - pygame.Vector2(cam_x, cam_y)
             p2 = self.points[i+1] - pygame.Vector2(cam_x, cam_y)
             self.draw_jagged_line(surface, p1, p2)
 
-        print("this has been drawn")
 
