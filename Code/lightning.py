@@ -90,6 +90,7 @@ class ChainLightning(pygame.sprite.Sprite):
                 # if no enemy found, just end this chain jump
                 break
 
+            damage_applied = False
         # ensure at least a visible start point if no enemies were hit
         if len(self.points) == 1:
             self.points.append(self.reusable_point + pygame.Vector2(0, -5))  # tiny visible line
@@ -128,7 +129,7 @@ class ChainLightning(pygame.sprite.Sprite):
         for i in range(len(self.points) - 1):
             p1 = self.points[i] - pygame.Vector2(cam_x, cam_y)
             p2 = self.points[i+1] - pygame.Vector2(cam_x, cam_y)
+            self.draw_jagged_line(surface, p1, p2)
 
-        self.draw_jagged_line(surface,p1, p2)
         print("this has been drawn")
 

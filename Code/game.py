@@ -140,10 +140,7 @@ class Game:
                 i.draw(self.surface, cam_x, cam_y)
 
             for i in self.projectiles:
-                if i.id == "lightning":
-                    i.draw_jagged_line(self.surface,cam_x,cam_y)
-                else:
-                    i.draw(self.surface, cam_x, cam_y)
+                i.draw(self.surface, cam_x, cam_y)
 
 
 

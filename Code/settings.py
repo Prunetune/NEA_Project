@@ -59,7 +59,7 @@ class Settings:
 
         # --- Lightning Spell --- #
         self.lightning_damage = 20000000
-        self.lightning_range = 10
+        self.lightning_range = 250
         self.lightning_cost = 50
         self.lightning_max_jumps = 6
         self.lightning_duration = 300
