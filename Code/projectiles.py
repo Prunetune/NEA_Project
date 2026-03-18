@@ -23,7 +23,7 @@ class Projectile(pygame.sprite.Sprite):
         self.vel = direction_vector * settings.projectile_speed
         self.spawn_time = pygame.time.get_ticks()
         self.owner = owner
-
+        self.id = "Projectile"
 
     def update(self, collision_machine, tile_map, enemies , player):
         """

@@ -13,6 +13,7 @@ class Fireball(pygame.sprite.Sprite):
         self.pos = pygame.Vector2(x, y)
         self.vel = direction * settings.fireball_speed
         self.trail = []  # Stores [x, y, radius]
+        self.id = "Fireball"
 
     def update(self, collision_machine, tile_map, enemies , player):
         # 1. Simple Trail Effect

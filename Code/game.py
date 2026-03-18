@@ -127,6 +127,8 @@ class Game:
 
             # FIX: Pass self.tile_map so projectiles check their OWN nearby walls
             self.projectiles.update(self.collision, self.tile_map, self.enemies, self.player)
+            for projectile in self.projectiles:
+                print(projectile)
 
             self.screen.clear()
             self.tile_map.draw(self.surface, cam_x, cam_y)
@@ -138,7 +140,12 @@ class Game:
                 i.draw(self.surface, cam_x, cam_y)
 
             for i in self.projectiles:
-                i.draw(self.surface, cam_x, cam_y)
+                if i.id == "lightning":
+                    i.draw_jagged_line(self.surface,cam_x,cam_y)
+                else:
+                    i.draw(self.surface, cam_x, cam_y)
+
+
 
             self.player.draw(self.surface, cam_x, cam_y)
             self.hud.draw(self.surface, self.player)
@@ -156,3 +163,6 @@ class Game:
 
             if i.type == pygame.KEYDOWN and i.key == pygame.K_ESCAPE:
                 self.running = False
+
+    def get_tile_map(self):
+        return self.tile_map

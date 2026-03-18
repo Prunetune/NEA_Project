@@ -10,7 +10,7 @@ class Explosion(pygame.sprite.Sprite):
         self.max_radius = settings.fireball_max_aoe_radius
         self.alpha = settings.fireball_alpha
         self.rect = pygame.Rect(x, y, 1, 1)  # Needed for group compatibility
-
+        self.id = "Explosion"
     def update(self, *args):
         """Expands and fades out."""
         self.radius += 6

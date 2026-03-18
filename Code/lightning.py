@@ -2,6 +2,7 @@ import pygame
 import random
 from .timer import CooldownTimer
 
+
 class ChainLightning(pygame.sprite.Sprite):
     def __init__(self, settings, start_pos, mouse_pos):
         super().__init__()
@@ -11,14 +12,13 @@ class ChainLightning(pygame.sprite.Sprite):
         self.points = [pygame.Vector2(start_pos)]
 
         # reusable point for efficiency
-        self._reusable_point = pygame.Vector2(start_pos)
+        self.reusable_point = pygame.Vector2(start_pos)
 
         # lifetime timer in ms
         self.timer = CooldownTimer(settings.lightning_duration)
         self.timer.trigger()  # start immediately so lifetime is counted
 
-        # minimal rect so groups work
-        self.rect = pygame.Rect(0, 0, 1, 1)
+
 
         # where player aimed
         self.mouse_pos = mouse_pos
@@ -26,8 +26,13 @@ class ChainLightning(pygame.sprite.Sprite):
         # only chain once
         self.has_chained = False
 
-        print("this has been made")
+        self.image = pygame.Surface((self.settings.screen_width,self.settings.screen_height),
+                                    pygame.SRCALPHA)
+        self.image.fill(settings.color_projectile)
+        self.rect = self.image.get_rect(topleft=(0,0))
+        #print("this has been made")
 
+        self.id = "Lightning"
     def update(self, collision_machine, tile_map, enemies, player):
         # run chain once
         if not self.has_chained:
@@ -35,7 +40,7 @@ class ChainLightning(pygame.sprite.Sprite):
             self.has_chained = True
 
         # remove when timer is done
-        if self.timer.is_ready():
+        if pygame.time.get_ticks()-self.timer.last_trigger_time > self.settings.lightning_duration:
             self.kill()
 
 
@@ -47,12 +52,13 @@ class ChainLightning(pygame.sprite.Sprite):
         current_pos = pygame.Vector2(self.points[0])
         damage_applied = False
 
-        for _ in range(self.settings.lightning_max_jumps):
+        # track hits for this jump
+        hit_enemies = []
+
+        for i in range(self.settings.lightning_max_jumps):
             closest_enemy = None
             min_dist = self.settings.lightning_range  # limit every jump
 
-            # track hits for this jump
-            hit_enemies = []
 
             for enemy in enemies:
                 if enemy in hit_enemies:
@@ -75,9 +81,9 @@ class ChainLightning(pygame.sprite.Sprite):
 
                 # reuse vector for points (can cause subtle visual shift)
                 cx, cy = closest_enemy.rect.center
-                self._reusable_point.x = cx
-                self._reusable_point.y = cy
-                self.points.append(self._reusable_point)
+                self.reusable_point.x = cx
+                self.reusable_point.y = cy
+                self.points.append(self.reusable_point)
 
                 current_pos = pygame.Vector2(closest_enemy.rect.center)
             else:
@@ -86,7 +92,7 @@ class ChainLightning(pygame.sprite.Sprite):
 
         # ensure at least a visible start point if no enemies were hit
         if len(self.points) == 1:
-            self.points.append(self._reusable_point + pygame.Vector2(0, -5))  # tiny visible line
+            self.points.append(self.reusable_point + pygame.Vector2(0, -5))  # tiny visible line
 
         print("chain has been calculated")
 
@@ -111,10 +117,18 @@ class ChainLightning(pygame.sprite.Sprite):
             )
 
             current_start = target_end
+        print("this has been drawn jagged")
 
     def draw(self, surface, cam_x, cam_y):
         # draw line segments
+
+
         if len(self.points) < 2:
             return
         for i in range(len(self.points) - 1):
             p1 = self.points[i] - pygame.Vector2(cam_x, cam_y)
+            p2 = self.points[i+1] - pygame.Vector2(cam_x, cam_y)
+
+        self.draw_jagged_line(surface,p1, p2)
+        print("this has been drawn")
+

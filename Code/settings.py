@@ -20,8 +20,8 @@ class Settings:
         self.map_height_tiles = 7 * self.repeat_y
 
         # --- Spawns --- #
-        self.enemy_spawn_count = 0
-        self.archer_spawn_count= 40
+        self.enemy_spawn_count = 30
+        self.archer_spawn_count= 0
         self.trap_spawn_count = 30
 
         # --- HUD (UI) --- #
@@ -32,10 +32,10 @@ class Settings:
         self.hud_offset_y_mana = 50
 
         # --- Player Stats --- #
-        self.max_health = 100
+        self.max_health = 100000000
         self.player_health = 100
         self.player_speed = 5
-        self.player_max_mana = 100
+        self.player_max_mana = 10000000
         self.mana_regen = 0.3
         self.water_bullet_spell_cost = 15
         self.player_size = 28
@@ -58,11 +58,11 @@ class Settings:
         self.fireball_alpha = 255
 
         # --- Lightning Spell --- #
-        self.lightning_damage = 20
+        self.lightning_damage = 20000000
         self.lightning_range = 10
         self.lightning_cost = 50
         self.lightning_max_jumps = 6
-        self.lightning_duration = 35
+        self.lightning_duration = 300
 
         # --- Heal Spell ---#
         self.heal_spell_cost = 10
@@ -77,7 +77,7 @@ class Settings:
 
         # --- Enemy/Trap Stats ---#
         self.enemy_health = 50
-        self.enemy_damage = 10
+        self.enemy_damage = 0
         self.enemy_speed = 2.5
         self.enemy_search_dist = 600
         self.enemy_repath_rate = 1
