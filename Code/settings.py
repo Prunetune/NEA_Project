@@ -57,6 +57,9 @@ class Settings:
         self.fireball_trail_length = 10
         self.fireball_alpha = 255
 
+        # --- Summon Spell --- #
+        self.summon_spell_cost = 60
+
         # --- Lightning Spell --- #
         self.lightning_damage = 20000000
         self.lightning_range = 250

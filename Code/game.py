@@ -126,7 +126,13 @@ class Game:
 
 
             # FIX: Pass self.tile_map so projectiles check their OWN nearby walls
-            self.projectiles.update(self.collision, self.tile_map, self.enemies, self.player)
+            for i in self.projectiles:
+                if i.id == "Summon":
+                    print("This is being selected to be updated")
+                    self.enemies.add(i.spawn_ally())
+                    i.summon_update()
+                else:
+                    self.projectiles.update(self.collision, self.tile_map, self.enemies, self.player)
 
 
             self.screen.clear()
@@ -141,6 +147,8 @@ class Game:
             for i in self.projectiles:
                 if i.id == "Lightning":
                     i.draw(self.surface,cam_x, cam_y , self.player)
+                if i.id == "Summon":
+                    print("Summon no longer breaks game")
                 else:
                     i.draw(self.surface, cam_x, cam_y)
 
