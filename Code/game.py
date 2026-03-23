@@ -147,8 +147,6 @@ class Game:
             for i in self.projectiles:
                 if i.id == "Lightning":
                     i.draw(self.surface,cam_x, cam_y , self.player)
-                if i.id == "Summon":
-                    print("Summon no longer breaks game")
                 else:
                     i.draw(self.surface, cam_x, cam_y)
 

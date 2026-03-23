@@ -61,7 +61,7 @@ class Settings:
         self.summon_spell_cost = 60
 
         # --- Lightning Spell --- #
-        self.lightning_damage = 20000000
+        self.lightning_damage = 200
         self.lightning_range = 250
         self.lightning_cost = 50
         self.lightning_max_jumps = 5000
