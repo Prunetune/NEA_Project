@@ -132,7 +132,7 @@ class Game:
                     self.enemies.add(i.spawn_ally())
                     i.summon_update()
                 else:
-                    self.projectiles.update(self.collision, self.tile_map, self.enemies, self.player)
+                    i.update(self.collision, self.tile_map, self.enemies, self.player)
 
 
             self.screen.clear()
