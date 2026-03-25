@@ -130,7 +130,7 @@ class Game:
                 if i.id == "Summon":
                     print("This is being selected to be updated")
                     self.enemies.add(i.spawn_ally())
-                    i.summon_update()
+                    i.summon_update() 
                 else:
                     i.update(self.collision, self.tile_map, self.enemies, self.player)
 
