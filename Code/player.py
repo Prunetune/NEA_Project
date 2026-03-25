@@ -185,6 +185,7 @@ class Player(pygame.sprite.Sprite):
         return ChainLightning(self.settings, self.rect.center , mouse_pos)
 
     def summon_spell(self):
+        self.mana -= self.settings.summon_spell_cost
         return Summon(self.settings,"Player","enemy",self.pos)
 
 

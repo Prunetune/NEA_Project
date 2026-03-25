@@ -32,10 +32,10 @@ class Settings:
         self.hud_offset_y_mana = 50
 
         # --- Player Stats --- #
-        self.max_health = 100000000
+        self.max_health = 100
         self.player_health = 100
         self.player_speed = 5
-        self.player_max_mana = 10000000
+        self.player_max_mana = 100
         self.mana_regen = 0.3
         self.water_bullet_spell_cost = 15
         self.player_size = 28
@@ -61,7 +61,7 @@ class Settings:
         self.summon_spell_cost = 60
 
         # --- Lightning Spell --- #
-        self.lightning_damage = 200
+        self.lightning_damage = 400
         self.lightning_range = 250
         self.lightning_cost = 50
         self.lightning_max_jumps = 5000
@@ -76,7 +76,7 @@ class Settings:
         self.projectile_speed = 10
         self.projectile_damage = 25
         self.projectile_lifetime = 1000
-        self.projectile_cooldown = 800
+        self.projectile_cooldown = 0
 
         # --- Enemy/Trap Stats ---#
         self.enemy_health = 50
@@ -89,7 +89,7 @@ class Settings:
 
         # --- Archer Stats ---#
         self.archer_health = 30
-        self.archer_damage = 5
+        self.archer_damage = 2.5
         self.archer_speed = 10
         self.archer_search_dist = 600
         self.archer_repath_rate = 1

@@ -16,11 +16,12 @@ class Summon(pygame.sprite.Sprite):
         self.spawn_pos = current_pos
         self.id = "Summon"
         self.allys_spawned = 0
+
     def spawn_ally(self):
         if self.allys_spawned == 0:
             self.allys_spawned += 1
             if self.entity_type == "enemy":
-                return Enemy(self.settings,(self.spawn_pos.x + 10), (self.spawn_pos.y +10))
+                return Enemy(self.settings,(self.spawn_pos.x + 50), (self.spawn_pos.y + 50))
             else:
                 print("mistake")
         else:
