@@ -70,24 +70,21 @@ class CollisionDetection:
     @staticmethod
     def resolve_enemy_collision(player, enemies):
         """
-        Triggers knockback on the player instead of teleporting.
+        Triggers knockback on the player
         """
         hit_list = pygame.sprite.spritecollide(player, enemies, False)
 
         for enemy in hit_list:
-            # 1. Deal Damage
+            # Deal Damage
             player.take_damage(enemy.damage)
 
-            # 2. Trigger Knockback (Vector Math)
+            # rigger Knockback
             # Calculate direction away from enemy
-            p_center = pygame.Vector2(player.rect.center)
-            e_center = pygame.Vector2(enemy.rect.center)
-            direction = p_center - e_center
+            player_centre = pygame.Vector2(player.rect.center)
+            enemy_center = pygame.Vector2(enemy.rect.center)
+            direction = player_centre - enemy_center
 
-            if direction.length() > 0:
-                direction = direction.normalize()
-            else:
-                direction = pygame.Vector2(1, 0)  # Fallback if centers overlap perfectly
+
 
             # Apply force to player
             player.apply_knockback(direction)

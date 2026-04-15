@@ -18,7 +18,6 @@ class Projectile(pygame.sprite.Sprite):
         self.image.fill(settings.color_projectile)
         self.rect = self.image.get_rect(center=(x, y))
 
-       # print("THIS HAS BEEN MADE")
         self.pos = pygame.Vector2(x, y)
         self.vel = direction_vector * settings.projectile_speed
         self.spawn_time = pygame.time.get_ticks()
@@ -32,8 +31,7 @@ class Projectile(pygame.sprite.Sprite):
         self.pos += self.vel
         self.rect.center = (int(self.pos.x), int(self.pos.y))
 
-        # FIX: Get walls near THIS projectile, not the player
-        walls = tile_map.get_nearby_walls(self.rect)
+        walls = tile_map.get_nearby_walls(self.rect) # the walls around the bullet for collision testing
 
         # Wall Collision
         for i in walls:
@@ -57,8 +55,6 @@ class Projectile(pygame.sprite.Sprite):
         if pygame.time.get_ticks() - self.spawn_time > self.settings.projectile_lifetime:
             self.kill()
 
-        #print("THIS HAS BEEN UPDATED")
-
     def draw(self, surface, cam_x, cam_y):
         """
         Draw relative to camera.
@@ -67,4 +63,4 @@ class Projectile(pygame.sprite.Sprite):
         draw_rect.x -= cam_x
         draw_rect.y -= cam_y
         surface.blit(self.image, draw_rect)
-       # print("THIS HAS BEEN DRAWN")
+

@@ -20,11 +20,11 @@ class Settings:
         self.map_height_tiles = 7 * self.repeat_y
 
         # --- Spawns --- #
-        self.enemy_spawn_count = 45
-        self.archer_spawn_count= 30
-        self.trap_spawn_count = 30
+        self.enemy_spawn_count = 10
+        self.archer_spawn_count= 20
+        self.trap_spawn_count = 15
 
-        # --- HUD (UI) --- #
+        # --- HUD --- #
         self.hud_bar_width = 200
         self.hud_bar_height = 20
         self.hud_offset_x = 20
@@ -76,13 +76,13 @@ class Settings:
         self.projectile_speed = 10
         self.projectile_damage = 25
         self.projectile_lifetime = 1000
-        self.projectile_cooldown = 0
+        self.projectile_cooldown = 300
 
-        # --- Enemy/Trap Stats ---#
+        # --- Enemy Stats ---#
         self.enemy_health = 50
-        self.enemy_damage = 0
+        self.enemy_damage = 10
         self.enemy_speed = 2.5
-        self.enemy_search_dist = 600
+        self.enemy_search_dist = 600 # size of the search radius of the enemy
         self.enemy_repath_rate = 1
         self.enemy_node_limit = 40
         self.enemy_map_check_bias = 0.2
@@ -95,13 +95,13 @@ class Settings:
         self.archer_repath_rate = 1
         self.archer_node_limit = 40
         self.archer_map_check_bias = 0.2
-        self.archer_attack_cooldown = 700
+        self.archer_attack_cooldown = 0
 
         # --- Trap Stats --- #
         self.trap_damage = 15
 
-        #  --- Knockback Physics --- #
-        self.knockback_strength = 15
+        #  --- Knockback  --- #
+        self.knockback_strength = 1
         self.knockback_friction = 0.85
 
         # --- Camera --- #

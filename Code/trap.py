@@ -14,7 +14,7 @@ class Trap(pygame.sprite.Sprite):
         self.settings = settings
 
         self.image = pygame.Surface((settings.tile_size, settings.tile_size))
-        self.image.fill(settings.color_trap)  # GREEN
+        self.image.fill(settings.color_trap)  # purple
         self.rect = self.image.get_rect(topleft=(x, y))
         self.damage = settings.trap_damage
 
@@ -22,7 +22,7 @@ class Trap(pygame.sprite.Sprite):
         """
         Check collision with player.
         """
-        if self.rect.colliderect(player.rect):
+        if self.rect.colliderect(player.rect): # if the two rects overlap the player takes damge
             player.take_damage(self.damage)
 
     def draw(self, surface, cam_x, cam_y):

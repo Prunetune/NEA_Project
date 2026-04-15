@@ -33,21 +33,20 @@ class Archer(Enemy):
 
 
     def fire_projectiles(self, target):
-        if self.attack_cooldown.is_ready():
-            #print("test 1") ## Checks to make sure it makes it through first condition,THIS CHECK COMPLETES
+        if self.attack_cooldown.is_ready(): # ensures its cooldown is over
             player_position = target
             position = self.pos
 
             direction = player_position - position
-            if 0 < direction.length() <= 500:
-                #print("test 2") ## Checks to make sure it makes it through second condition, THIS CHECK COMPLETES
+            if 0 < direction.length() <= 500: # makes sure the player isnt outside of firing range
                 direction = direction.normalize()
                 self.attack_cooldown.trigger()
                 return Projectile(self.settings, self.pos.x, self.pos.y, direction, "Archer")
         return None
 
+
     def update(self, collision_machine, player, tile_map):
          super().update(collision_machine,player,tile_map)
-
+         self.fire_projectiles(player.pos)
 
 

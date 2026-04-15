@@ -21,22 +21,28 @@ class HUD:
 
         w = self.settings.hud_bar_width
         h = self.settings.hud_bar_height
-        x = self.settings.hud_offset_x
-        y_hp = self.settings.hud_offset_y_hp
-        y_mana = self.settings.hud_offset_y_mana
+        x = self.settings.hud_offset_x  # sets the x coordinates for the health and mana bar
+        y_hp = self.settings.hud_offset_y_hp # sets the y coord for its respective bar
+        y_mana = self.settings.hud_offset_y_mana # sets the y coord for its respective bar
 
         # Draw Health
-        pygame.draw.rect(surface, self.settings.color_hp_bg, (x, y_hp, w, h))
+        pygame.draw.rect(surface, self.settings.color_hp_bg, (x, y_hp, w, h)) # creates the black background for the
+                                                                                   # bar to be pasted over
 
-        if hp_ratio > 0:
-            pygame.draw.rect(surface, self.settings.color_hp, (x, y_hp, w * hp_ratio, h))
+        pygame.draw.rect(surface, self.settings.color_hp, (x, y_hp, w * hp_ratio, h))  # draws the fill over the
+                                                                                            # black  background for hp
 
-        pygame.draw.rect(surface, self.settings.color_border, (x, y_hp, w, h), 2)
+        pygame.draw.rect(surface, self.settings.color_border, (x, y_hp, w, h), 2) # provides a white border
+                                                                                             # to surround the hp bar
 
-        # Draw Mana
+        # Draw Mana - sequence is the same as for hp
         pygame.draw.rect(surface, self.settings.color_hud_bg, (x, y_mana, w, h))
 
-        if mana_ratio > 0:
-            pygame.draw.rect(surface, self.settings.color_mana, (x, y_mana, w * mana_ratio, h))
+        pygame.draw.rect(surface, self.settings.color_mana, (x, y_mana, w * mana_ratio, h))
 
         pygame.draw.rect(surface, self.settings.color_border, (x, y_mana, w, h), 2)
+
+
+
+
+

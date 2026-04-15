@@ -38,7 +38,7 @@ class Game:
         self.player = Player(self.settings, spawn_pos[0], spawn_pos[1])
 
         self.enemies = pygame.sprite.Group()
-        self.traps = pygame.sprite.Group()
+        self.traps = pygame.sprite.Group() # creates a sprite grouping for my traps
         self.projectiles = pygame.sprite.Group()
 
         self.populate_world()
@@ -51,11 +51,11 @@ class Game:
         Finds a coordinate that is NOT a wall.
         """
         while True:
-            tx = random.randint(1, self.settings.map_width_tiles - 2)
-            ty = random.randint(1, self.settings.map_height_tiles - 2)
+            x_spawn = random.randint(1, self.settings.map_width_tiles - 2)
+            y_spawn = random.randint(1, self.settings.map_height_tiles - 2)
 
-            if self.tile_map.map_data[ty][tx] == 0:
-                return tx * self.settings.tile_size, ty * self.settings.tile_size
+            if self.tile_map.map_data[y_spawn][x_spawn] == 0:
+                return x_spawn * self.settings.tile_size, y_spawn * self.settings.tile_size
 
     def populate_world(self):
         """
@@ -70,8 +70,9 @@ class Game:
             self.enemies.add(Archer(self.settings, pos[0], pos[1]))
 
         for i in range(self.settings.trap_spawn_count):
-            pos = self.get_safe_spawn_point()
-            self.traps.add(Trap(self.settings, pos[0], pos[1]))
+            pos=self.get_safe_spawn_point() # generates a safe spawn point
+            self.traps.add(Trap(self.settings, pos[0], pos[1])) #adds the sprite object to a list so i can update and draw
+                                                                 # all at once
 
 
 
@@ -98,39 +99,46 @@ class Game:
 
 
 
-            # 1. Physics & Wall Collision
+            #Physics & Wall Collision
             nearby_walls = self.tile_map.get_nearby_walls(self.player.rect)
             self.player.update(self.collision, nearby_walls)
 
-            # 2. Enemy Collision (Knockback)
+            #Enemy Collision (Knockback)
             self.collision.resolve_enemy_collision(self.player, self.enemies)
 
             self.camera.update(self.player)
 
-            visible_enemies = [e for e in self.enemies if view_rect.colliderect(e.rect)]
-            visible_traps = [t for t in self.traps if view_rect.colliderect(t.rect)]
+            # find out which traps are actually on camera
+            visible_traps = []
 
-            for i in visible_enemies:
-                i.update(self.collision, self.player, self.tile_map)
+            for trap in self.traps:
+                if view_rect.colliderect(trap.rect):
+                    visible_traps.append(trap)
 
-            for i in visible_traps:
-                i.update(self.collision, self.player)
-
-            for i in visible_enemies:
-                if i.get_enemy_id() == "Archer":
-                    temp = i.fire_projectiles(self.player.pos)
-                    if temp is not None:
-                        self.projectiles.add(temp)
+            for trap in visible_traps:
+                trap.update(self.collision, self.player)
 
 
 
+            visible_enemies = []
 
-            # FIX: Pass self.tile_map so projectiles check their OWN nearby walls
+            # Filter enemies by whats visible
+            for enemy in self.enemies:
+                if view_rect.colliderect(enemy.rect):
+                    visible_enemies.append(enemy)
+
+
+            for enemy in visible_enemies:
+                enemy.update(self.collision, self.player, self.tile_map)
+
+
+
+
             for i in self.projectiles:
                 if i.id == "Summon":
                     print("This is being selected to be updated")
                     self.enemies.add(i.spawn_ally())
-                    i.summon_update() 
+                    i.summon_update()
                 else:
                     i.update(self.collision, self.tile_map, self.enemies, self.player)
 
@@ -138,8 +146,9 @@ class Game:
             self.screen.clear()
             self.tile_map.draw(self.surface, cam_x, cam_y)
 
-            for i in visible_traps:
-                i.draw(self.surface, cam_x, cam_y)
+            for trap in visible_traps:
+                # We pass the camera offsets so they draw in the right place relative to the player
+                trap.draw(self.surface, cam_x, cam_y)
 
             for i in visible_enemies:
                 i.draw(self.surface, cam_x, cam_y)
