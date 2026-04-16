@@ -3,7 +3,7 @@ from .timer import CooldownTimer
 from .projectiles import Projectile
 from .fireball import Fireball
 from .lightning import ChainLightning
-from.summon import Summon
+
 class Player(pygame.sprite.Sprite):
     """
     Main player character.
@@ -18,7 +18,7 @@ class Player(pygame.sprite.Sprite):
         self.size = settings.player_size
 
         self.image = pygame.Surface((self.size, self.size))
-        self.image.fill(settings.color_player)
+        self.image.fill(settings.colour_player)
         self.rect = self.image.get_rect(topleft=(x, y))
         self.pos = pygame.Vector2(x, y)
         self.x = float(self.pos.x)
@@ -80,8 +80,6 @@ class Player(pygame.sprite.Sprite):
             if keys[pygame.K_4]:
                 self.spell = 4
 
-            if keys[pygame.K_5]:
-                self.spell = 5
 
         # --- DASH (Shift) ---
         if keys[pygame.K_LSHIFT] and self.dash_timer.is_ready():
@@ -128,12 +126,6 @@ class Player(pygame.sprite.Sprite):
                 self.shoot_timer.trigger()                        # checks the mana cost
                 return self.create_chain_lightning(cam_x,cam_y)   # the cooldown duration
 
-        if self.spell == 5:
-            if mouse_buttons[0] and self.mana >= self.settings.summon_spell_cost and self.shoot_timer.is_ready():
-                self.shoot_timer.trigger()
-                return self.summon_spell()
-        return None
-
 
     def create_projectile(self, cam_x, cam_y):
         """
@@ -169,9 +161,6 @@ class Player(pygame.sprite.Sprite):
         mouse_pos = pygame.Vector2(pygame.mouse.get_pos() + pygame.Vector2(cam_x,cam_y))
         return ChainLightning(self.settings, self.rect.center , mouse_pos)
 
-    def summon_spell(self):
-        self.mana -= self.settings.summon_spell_cost
-        return Summon(self.settings,"Player","enemy",self.pos)
 
 
     def apply_knockback(self, direction_vector):
@@ -268,4 +257,4 @@ class Player(pygame.sprite.Sprite):
                 pygame.draw.rect(surface, (255, 255, 255), draw_rect)
                 return
 
-        pygame.draw.rect(surface, self.settings.color_player, draw_rect)
+        pygame.draw.rect(surface, self.settings.colour_player, draw_rect)

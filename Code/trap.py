@@ -14,7 +14,7 @@ class Trap(pygame.sprite.Sprite):
         self.settings = settings
 
         self.image = pygame.Surface((settings.tile_size, settings.tile_size))
-        self.image.fill(settings.color_trap)  # purple
+        self.image.fill(settings.colour_trap)  # purple
         self.rect = self.image.get_rect(topleft=(x, y))
         self.damage = settings.trap_damage
 
@@ -31,5 +31,5 @@ class Trap(pygame.sprite.Sprite):
         """
         draw_rect = self.rect.copy()
         draw_rect.x -= cam_x
-        draw_rect.y -= cam_y
+        draw_rect.y -= cam_
         surface.blit(self.image, draw_rect)

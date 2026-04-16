@@ -20,9 +20,9 @@ class Settings:
         self.map_height_tiles = 7 * self.repeat_y
 
         # --- Spawns --- #
-        self.enemy_spawn_count = 10
-        self.archer_spawn_count= 20
-        self.trap_spawn_count = 15
+        self.enemy_spawn_count = 300
+        self.archer_spawn_count= 0
+        self.trap_spawn_count = 0
 
         # --- HUD --- #
         self.hud_bar_width = 200
@@ -57,14 +57,12 @@ class Settings:
         self.fireball_trail_length = 10
         self.fireball_alpha = 255
 
-        # --- Summon Spell --- #
-        self.summon_spell_cost = 60
 
         # --- Lightning Spell --- #
-        self.lightning_damage = 400
+        self.lightning_damage = 40000
         self.lightning_range = 250
         self.lightning_cost = 50
-        self.lightning_max_jumps = 5000
+        self.lightning_max_jumps = 6
         self.lightning_duration = 300
 
         # --- Heal Spell ---#
@@ -81,7 +79,7 @@ class Settings:
         # --- Enemy Stats ---#
         self.enemy_health = 50
         self.enemy_damage = 10
-        self.enemy_speed = 2.5
+        self.enemy_speed = 0
         self.enemy_search_dist = 600 # size of the search radius of the enemy
         self.enemy_repath_rate = 1
         self.enemy_node_limit = 40
@@ -89,13 +87,13 @@ class Settings:
 
         # --- Archer Stats ---#
         self.archer_health = 30
-        self.archer_damage = 2.5
+        self.archer_damage = 10
         self.archer_speed = 10
         self.archer_search_dist = 600
         self.archer_repath_rate = 1
         self.archer_node_limit = 40
         self.archer_map_check_bias = 0.2
-        self.archer_attack_cooldown = 0
+        self.archer_attack_cooldown = 600
 
         # --- Trap Stats --- #
         self.trap_damage = 15
@@ -109,19 +107,19 @@ class Settings:
         self.camera_smoothing = 0.12
 
         # --- Colors --- #
-        self.color_bg = (20, 20, 20)
-        self.color_floor = (40, 40, 40)
-        self.color_wall = (100, 100, 100)
-        self.color_player = (0, 200, 0)
-        self.color_enemy = (200, 0, 0)
-        self.color_projectile = (0, 255, 255)
-        self.color_trap = (150, 0, 200)
-        self.color_hud_bg = (50, 50, 50)
-        self.color_hp = (0, 200, 0)
-        self.color_hp_bg = (100, 0, 0)
-        self.color_mana = (0, 100, 255)
-        self.color_border = (255, 255, 255)
-        self.color_archer = (71, 99, 30)
-        self.color_fireball = (255, 100, 0)
-        self.color_explosion = (255, 200, 0)
-        self.color_lightning = (150, 230, 255)
+        self.colour_bg = (20, 20, 20)
+        self.colour_floor = (40, 40, 40)
+        self.colour_wall = (100, 100, 100)
+        self.colour_player = (0, 200, 0)
+        self.colour_enemy = (200, 0, 0)
+        self.colour_projectile = (0, 255, 255)
+        self.colour_trap = (150, 0, 200)
+        self.colour_hud_bg = (50, 50, 50)
+        self.colour_hp = (0, 200, 0)
+        self.colour_hp_bg = (100, 0, 0)
+        self.colour_mana = (0, 100, 255)
+        self.colour_border = (255, 255, 255)
+        self.colour_archer = (71, 99, 30)
+        self.colour_fireball = (255, 100, 0)
+        self.colour_explosion = (255, 200, 0)
+        self.colour_lightning = (150, 230, 255)

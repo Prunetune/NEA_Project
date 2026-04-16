@@ -28,9 +28,9 @@ class ChainLightning(pygame.sprite.Sprite):
 
         self.image = pygame.Surface((self.settings.screen_width,self.settings.screen_height),
                                     pygame.SRCALPHA)
-        self.image.fill(settings.color_projectile)
+        self.image.fill(settings.colour_projectile)
         self.rect = self.image.get_rect(topleft=(0,0))
-
+        #print("this has been made")
 
         self.id = "Lightning"
     def update(self, collision_machine, tile_map, enemies, player):
@@ -45,6 +45,7 @@ class ChainLightning(pygame.sprite.Sprite):
 
 
 
+        print("this has been updated")
 
     def calculate_chain(self, enemies):
         # start from player / cast position
@@ -54,11 +55,12 @@ class ChainLightning(pygame.sprite.Sprite):
         # track hits for this jump
         hit_enemies = []
 
+        # loops for max number of jumps
         for i in range(self.settings.lightning_max_jumps):
             closest_enemy = None
             min_dist = self.settings.lightning_range  # limit every jump
 
-
+            # searches for closest valid target
             for enemy in enemies:
                 if enemy in hit_enemies:
                     continue
@@ -70,6 +72,7 @@ class ChainLightning(pygame.sprite.Sprite):
                     min_dist = dist
                     closest_enemy = enemy
 
+            # if a target is found, it applys damage and updates the chain path
             if closest_enemy:
                 # only first enemy takes damage
                 if not damage_applied:
@@ -78,36 +81,36 @@ class ChainLightning(pygame.sprite.Sprite):
 
                 hit_enemies.append(closest_enemy)
 
-                # reuse vector for points
+                #  stores points in self.points
                 cx, cy = closest_enemy.rect.center
-                self.reusable_point.x = cx
-                self.reusable_point.y = cy
-                self.points.append(pygame.Vector2(cx,cy))
+                reusable_point = pygame.math.Vector2(cx, cy)
+                self.points.append(reusable_point)
+                print(self.points)
 
                 current_pos = pygame.Vector2(closest_enemy.rect.center)
             else:
                 # if no enemy found, just end this chain jump
                 break
 
-            damage_applied = False
         # ensure at least a visible start point if no enemies were hit
-
+        if len(self.points) == 1:
+            self.points.append(self.reusable_point + pygame.Vector2(0, -5))  # tiny visible line
 
     def draw_jagged_line(self, surface, start, end):
-        segments = 4
-        current_start = start
+        segments = 4 # defines the number of pieces to break the line into
+        current_start = start # where the first segment should begin
 
         for i in range(1, segments + 1):
-            t = i / segments
-            target_end = start.lerp(end, t)
+            t = i / segments # defines how far along the path the segment should reach
+            target_end = start.lerp(end, t) # finds the point along the line for t's percentage
 
-            if i < segments:
-                target_end.x += random.randint(-10, 10)
+            if i < segments: # ensures its not the final point
+                target_end.x += random.randint(-10, 10) # adds a random change to either left or right
                 target_end.y += random.randint(-10, 10)
 
-            pygame.draw.line(
+            pygame.draw.line(  # draws a line from the start to the end of the segment
                 surface,
-                self.settings.color_lightning,
+                self.settings.colour_lightning,
                 (int(current_start.x), int(current_start.y)),
                 (int(target_end.x), int(target_end.y)),
                 2,
@@ -115,17 +118,9 @@ class ChainLightning(pygame.sprite.Sprite):
 
             current_start = target_end
 
-    def draw(self, surface, cam_x, cam_y , player):
+    def draw(self, surface, cam_x, cam_y):
         # draw line segments
-
-        print(self.points)
-
-        if len(self.points) < 2:
-            return
-            player.mana += settings.lightning_cost
         for i in range(len(self.points) - 1):
-            p1 = self.points[i] - pygame.Vector2(cam_x, cam_y)
-            p2 = self.points[i+1] - pygame.Vector2(cam_x, cam_y)
-            self.draw_jagged_line(surface, p1, p2)
-
-
+            p1 = self.points[i] - pygame.Vector2(cam_x, cam_y) # takes current point adjusting for cam offset
+            p2 = self.points[i + 1] - pygame.Vector2(cam_x, cam_y)
+            self.draw_jagged_line(surface, p1, p2) # runs draw line

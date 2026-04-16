@@ -15,7 +15,7 @@ class Archer(Enemy):
 
 
         self.image = pygame.Surface((settings.player_size, settings.player_size))
-        self.image.fill(settings.color_archer)
+        self.image.fill(settings.colour_archer)
 
 
         self.health = settings.archer_health
@@ -36,7 +36,6 @@ class Archer(Enemy):
         if self.attack_cooldown.is_ready(): # ensures its cooldown is over
             player_position = target
             position = self.pos
-
             direction = player_position - position
             if 0 < direction.length() <= 500: # makes sure the player isnt outside of firing range
                 direction = direction.normalize()
@@ -47,6 +46,6 @@ class Archer(Enemy):
 
     def update(self, collision_machine, player, tile_map):
          super().update(collision_machine,player,tile_map)
-         self.fire_projectiles(player.pos)
+
 
 

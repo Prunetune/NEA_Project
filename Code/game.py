@@ -129,6 +129,10 @@ class Game:
 
 
             for enemy in visible_enemies:
+                if enemy.enemy_id == "Archer":
+                    temp = enemy.fire_projectiles(self.player.pos)
+                    if temp:
+                        self.projectiles.add(temp)
                 enemy.update(self.collision, self.player, self.tile_map)
 
 
@@ -154,10 +158,7 @@ class Game:
                 i.draw(self.surface, cam_x, cam_y)
 
             for i in self.projectiles:
-                if i.id == "Lightning":
-                    i.draw(self.surface,cam_x, cam_y , self.player)
-                else:
-                    i.draw(self.surface, cam_x, cam_y)
+                i.draw(self.surface, cam_x, cam_y)
 
 
 

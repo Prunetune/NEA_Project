@@ -76,5 +76,5 @@ class TileMap:
                 if self.map_data[i][j] == 1:
                     draw_x = j * self.tile_size - cam_x
                     draw_y = i * self.tile_size - cam_y
-                    pygame.draw.rect(surface, self.settings.color_wall,
+                    pygame.draw.rect(surface, self.settings.colour_wall,
                                      (draw_x, draw_y, self.tile_size, self.tile_size))

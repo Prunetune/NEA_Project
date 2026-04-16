@@ -17,15 +17,15 @@ class Enemy(pygame.sprite.Sprite):
         self.settings = settings
 
         self.image = pygame.Surface((settings.player_size, settings.player_size))
-        self.image.fill(settings.color_enemy)
+        self.image.fill(settings.colour_enemy)
         self.rect = self.image.get_rect(topleft=(x, y))
 
         self.pos = pygame.Vector2(x, y)
         self.health = settings.enemy_health
         self.damage = settings.enemy_damage
         self.last_hit_time = 0
-
         self.state = "IDLE"
+
         self.path = []
         self.repath_timer = CooldownTimer(settings.enemy_repath_rate)
         self.enemy_id = "Enemy"
@@ -80,7 +80,6 @@ class Enemy(pygame.sprite.Sprite):
                 while current in came_from:
                     path.append(current)
                     current = came_from[current]
-                print(path[::-1])
                 return path[::-1]  # Reverse to get correct order
 
             # Check all 4 neighbouring tiles (up, down, left, right)
@@ -112,12 +111,12 @@ class Enemy(pygame.sprite.Sprite):
         if self.state == "IDLE":
             if dist < self.settings.enemy_search_dist:
                 self.state = "CHASE"
-                print("self has returned to chase")
+
 
         elif self.state == "CHASE":
             if dist > self.settings.enemy_search_dist + 100:
                 self.state = "IDLE"
-                print("state has returned to idle")
+
 
             if not self.path or self.repath_timer.is_ready(): # checks to see if the enemy can redo its A* algorithm
                 start_tile = (int(self.rect.centerx // self.settings.tile_size),

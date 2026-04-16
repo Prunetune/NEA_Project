@@ -24,4 +24,4 @@ class Screen:
         """
         Wipe the screen clean.
         """
-        self.surface.fill(self.settings.color_bg)
+        self.surface.fill(self.settings.colour_bg)

@@ -8,21 +8,22 @@ class Explosion(pygame.sprite.Sprite):
         self.pos = pygame.Vector2(x, y)
         self.radius = settings.fireball_aoe_radius
         self.max_radius = settings.fireball_max_aoe_radius
-        self.alpha = settings.fireball_alpha
-        self.rect = pygame.Rect(x, y, 1, 1)  # Needed for group compatibility
+        self.alpha = settings.fireball_alpha # makes the explsion less visable as time passes
+        self.rect = pygame.Rect(x, y, 1, 1)  # Needed for group compatibility but doesn't actually do anything
         self.id = "Explosion"
+
     def update(self, *args):
         """Expands and fades out."""
         self.radius += 6
         self.alpha -= 15
-        if self.radius >= self.max_radius or self.alpha <= 0:
+        if self.radius >= self.max_radius or self.alpha <= 0: # checks to see if radius should still exsist
             self.kill()
 
     def draw(self, surface, cam_x, cam_y):
         # Create a surface for transparency
         size = self.radius * 2
         temp_surf = pygame.Surface((size, size), pygame.SRCALPHA)
-        color = (*self.settings.color_explosion, max(0, self.alpha))
+        colour = (*self.settings.colour_explosion, max(0, self.alpha))
 
-        pygame.draw.circle(temp_surf, color, (self.radius, self.radius), self.radius, 4)
+        pygame.draw.circle(temp_surf, colour, (self.radius, self.radius), self.radius, 4)
         surface.blit(temp_surf, (self.pos.x - self.radius - cam_x, self.pos.y - self.radius - cam_y))
