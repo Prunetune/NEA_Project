@@ -31,5 +31,5 @@ class Trap(pygame.sprite.Sprite):
         """
         draw_rect = self.rect.copy()
         draw_rect.x -= cam_x
-        draw_rect.y -= cam_
+        draw_rect.y -= cam_y
         surface.blit(self.image, draw_rect)

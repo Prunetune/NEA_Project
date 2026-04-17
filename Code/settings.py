@@ -20,9 +20,9 @@ class Settings:
         self.map_height_tiles = 7 * self.repeat_y
 
         # --- Spawns --- #
-        self.enemy_spawn_count = 300
-        self.archer_spawn_count= 0
-        self.trap_spawn_count = 0
+        self.enemy_spawn_count = 20
+        self.archer_spawn_count= 20
+        self.trap_spawn_count =  20
 
         # --- HUD --- #
         self.hud_bar_width = 200
@@ -33,11 +33,10 @@ class Settings:
 
         # --- Player Stats --- #
         self.max_health = 100
-        self.player_health = 100
+        self.player_health = 300
         self.player_speed = 5
         self.player_max_mana = 100
         self.mana_regen = 0.3
-        self.water_bullet_spell_cost = 15
         self.player_size = 28
         self.iframe_duration = 1000
 
@@ -62,7 +61,7 @@ class Settings:
         self.lightning_damage = 40000
         self.lightning_range = 250
         self.lightning_cost = 50
-        self.lightning_max_jumps = 6
+        self.lightning_max_jumps = 60
         self.lightning_duration = 300
 
         # --- Heal Spell ---#
@@ -75,11 +74,12 @@ class Settings:
         self.projectile_damage = 25
         self.projectile_lifetime = 1000
         self.projectile_cooldown = 300
+        self.water_bullet_spell_cost = 15
 
         # --- Enemy Stats ---#
         self.enemy_health = 50
         self.enemy_damage = 10
-        self.enemy_speed = 0
+        self.enemy_speed = 2.5
         self.enemy_search_dist = 600 # size of the search radius of the enemy
         self.enemy_repath_rate = 1
         self.enemy_node_limit = 40
@@ -89,7 +89,7 @@ class Settings:
         self.archer_health = 30
         self.archer_damage = 10
         self.archer_speed = 10
-        self.archer_search_dist = 600
+        self.archer_search_dist = 1200
         self.archer_repath_rate = 1
         self.archer_node_limit = 40
         self.archer_map_check_bias = 0.2

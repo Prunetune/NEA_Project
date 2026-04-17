@@ -74,10 +74,8 @@ class ChainLightning(pygame.sprite.Sprite):
 
             # if a target is found, it applys damage and updates the chain path
             if closest_enemy:
-                # only first enemy takes damage
-                if not damage_applied:
-                    closest_enemy.take_damage(self.settings.lightning_damage)
-                    damage_applied = True
+                closest_enemy.take_damage(self.settings.lightning_damage)
+
 
                 hit_enemies.append(closest_enemy)
 
